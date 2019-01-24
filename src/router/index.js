@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HomePage from '../components/Pages/HomePage/HomePage.vue';
-import SignupPage from '../components/Pages/SignupPage/SignupPage.vue';
+import HomePage from '../views/Home/HomePage.vue';
+import SignupPage from '../views/Signup/SignupPage.vue';
 
 
 Vue.use(Router);
