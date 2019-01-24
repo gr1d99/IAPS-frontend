@@ -1,28 +1,27 @@
 <template>
-  <div id="iaps">
-    <HomePage/>
+  <div id="iaas">
+    <div class="header">
+      <NavigationBar/>
+    </div>
+    <div class="container-fluid">
+      <HomePage/>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable import/extensions */
-import HomePage from './components/HomePage';
+import HomePage from './components/Pages/HomePage'; // eslint-disable-line
+import NavigationBar from './components/Navigation/NavigationBar'; // eslint-disable-line
 
 export default {
   name: 'app',
   components: {
     HomePage,
+    NavigationBar,
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

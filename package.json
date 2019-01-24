@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "bootstrap-vue": "^2.0.0-rc.11",
+    "bootstrap": "^4.2.1",
     "vue": "^2.5.21"
   },
   "devDependencies": {
@@ -24,6 +24,8 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   }
 }

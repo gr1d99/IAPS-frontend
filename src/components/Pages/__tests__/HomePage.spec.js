@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import HomePage from './../HomePage'; // eslint-disable-line
+import HomePage from '../HomePage'; // eslint-disable-line
 
 describe('HomePage', () => {
   it('should render', () => {
