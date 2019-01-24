@@ -1,6 +1,8 @@
 <template>
  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-   <a class="navbar-brand" href="">IAAS</a>
+   <router-link
+     class="navbar-brand"
+     :to="{ name: 'Home' }">IAAS</router-link>
    <button class="navbar-toggler"
            type="button"
            data-toggle="collapse"
