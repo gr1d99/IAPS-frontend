@@ -11,7 +11,7 @@ const router = new Router({
   routes: [
     {
       path: '/sign_up',
-      name: 'Signup',
+      name: 'SignUp',
       component: SignupPage,
     },
     {

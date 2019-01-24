@@ -12,7 +12,15 @@
            aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
-   <div class="collapse navbar-collapse" id="navbarText"></div>
+   <div class="collapse navbar-collapse" id="navbarText">
+     <ul class="navbar-nav ml-auto">
+       <li class="nav-item active">
+         <router-link
+           class="nav-link"
+           :to="{ name: 'SignUp' }">Sign up</router-link>
+       </li>
+     </ul>
+   </div>
  </nav>
 </template>
 
