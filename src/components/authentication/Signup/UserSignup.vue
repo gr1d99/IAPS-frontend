@@ -11,8 +11,15 @@
             <input id="id_email"
                    type="email"
                    class="form-control"
+                   :class="{'is-invalid': !fields['email']['valid']}"
                    placeholder="you@example.com"
                    v-model="email" />
+            <div class="invalid-feedback">
+              <span :key="index"
+                    v-for="(error, index) in fields['email']['errors']">
+                {{error}}</span>
+            </div>
+
           </div>
 
           <div class="form-group">
@@ -20,15 +27,13 @@
             <input id="id_password"
                    type="password"
                    class="form-control"
+                   :class="{'is-invalid': !fields['password']['valid']}"
                    v-model="password" />
-          </div>
-
-          <div class="form-group">
-            <label for="id_password_confirm">Confirm</label>
-            <input id="id_password_confirm"
-                   type="password"
-                   class="form-control"
-                   v-model="confirm"/>
+            <div class="invalid-feedback">
+              <span :key="index"
+                    v-for="(error, index) in fields['password']['errors']">
+                {{error}}</span>
+            </div>
           </div>
 
           <div class="signup-form-button">
@@ -51,21 +56,54 @@ export default {
     return {
       email: '',
       password: '',
-      confirm: '',
+      fields: {
+        email: {
+          valid: true,
+          errors: [],
+        },
+        password: {
+          valid: true,
+          errors: [],
+        },
+      },
     };
   },
   methods: {
     submitData() {
+      this.clearErrors();
       const data = {
         email: this.email,
         password: this.password,
-        confirm: this.confirm,
       };
       this.axios
         .post(REGISTRATION_URL,
           data)
-        .then(response => (console.log(response)))
-        .catch(error => (console.log(error.response.data)));
+        .then(response => ({}))
+        .catch((error) => {
+          const { data, status } = error.response;
+          if (status === 422) {
+            const { errors } = data;
+            this.updateValidationErrors(errors);
+          }
+        });
+    },
+    updateValidationErrors(errors) {
+      const formFields = ['email', 'password'];
+      Object.entries(errors).forEach((entry) => {
+        const field = entry[0];
+        if (formFields.includes(field)) {
+          const newErrors = {};
+          newErrors[field] = { valid: false, errors: entry[1] };
+          Object.assign(this.fields, newErrors);
+        }
+      });
+    },
+    clearErrors() {
+      Object.entries(this.fields).forEach((field) => {
+        const fieldProperty = {};
+        fieldProperty[field[0]] = { valid: true, errors: [] };
+        Object.assign(this.fields, fieldProperty);
+      });
     },
   },
 };
