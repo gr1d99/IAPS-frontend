@@ -78,7 +78,9 @@ export default {
       this.axios
         .post(REGISTRATION_URL,
           data)
-        .then(response => ({}))
+        .then((response) => {
+          this.$router.push('/');
+        })
         .catch((error) => {
           const { data, status } = error.response;
           if (status === 422) {
