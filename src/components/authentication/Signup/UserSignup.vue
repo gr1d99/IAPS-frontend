@@ -91,8 +91,9 @@ export default {
         });
     },
     registrationSuccess() {
-      this.$store.commit('showAlertMessage', REGISTRATION_SUCCESS);
       this.$router.push('/');
+      this.$store.commit('showAlertMessage', REGISTRATION_SUCCESS);
+      this.clearFormData();
     },
     updateValidationErrors(errors) {
       const formFields = ['email', 'password'];
@@ -111,6 +112,10 @@ export default {
         fieldProperty[field[0]] = { valid: true, errors: [] };
         Object.assign(this.fields, fieldProperty);
       });
+    },
+    clearFormData() {
+      this.email = '';
+      this.password = '';
     },
   },
 };
