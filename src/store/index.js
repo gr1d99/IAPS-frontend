@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import mutations from './mutations';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -8,14 +10,5 @@ export default new Vuex.Store({
     showAlertBox: false,
     alertMessage: '',
   },
-  mutations: {
-    showAlertMessage(state, message) {
-      Object.assign(state,
-        { showAlertBox: true, alertMessage: message });
-    },
-    clearAlertMessage(state) {
-      Object.assign(state,
-        { showAlertBox: false, alertMessage: '' });
-    },
-  },
+  mutations,
 });
