@@ -49,6 +49,7 @@
 
 <script>
 import { REGISTRATION_URL } from '../../../constants/api';
+import { REGISTRATION_SUCCESS } from '../../../constants/messages';
 
 export default {
   name: 'UserSignup',
@@ -79,7 +80,7 @@ export default {
         .post(REGISTRATION_URL,
           data)
         .then((response) => {
-          this.$router.push('/');
+          this.registrationSuccess();
         })
         .catch((error) => {
           const { data, status } = error.response;
@@ -88,6 +89,10 @@ export default {
             this.updateValidationErrors(errors);
           }
         });
+    },
+    registrationSuccess() {
+      this.$store.commit('showAlertMessage', REGISTRATION_SUCCESS);
+      this.$router.push('/');
     },
     updateValidationErrors(errors) {
       const formFields = ['email', 'password'];
