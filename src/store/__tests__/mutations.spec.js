@@ -1,4 +1,4 @@
-import mutations from './../mutations';
+import mutations from '../mutations';
 
 const { showAlertMessage, clearAlertMessage } = mutations;
 
@@ -25,7 +25,7 @@ describe('mutations', () => {
 
     clearAlertMessage(state);
 
-    expect(state.showAlertBox).toBeFalsey();
+    expect(state.showAlertBox).toBeFalsy();
     expect(state.alertMessage).toBe('');
   });
 });
