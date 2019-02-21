@@ -73,8 +73,10 @@ export default {
     submitData() {
       this.clearErrors();
       const data = {
-        email: this.email,
-        password: this.password,
+        user: {
+          email: this.email,
+          password: this.password,
+        },
       };
       this.axios
         .post(REGISTRATION_URL,
