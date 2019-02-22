@@ -6,20 +6,24 @@
           <h3 class="text-center text-uppercase">Sign up</h3>
         </div>
         <form class="signup-form" v-on:submit.prevent>
+
+          <div class="alert alert-danger signup-error-box"
+               role="alert"
+               v-show="hasValidationErrors">
+            <ul class="errors">
+              <li class="error-item"
+                  v-for="(error, index) in validationErrors"
+                  :key="index">{{error}}</li>
+            </ul>
+          </div>
+
           <div class="form-group">
             <label for="id_email">Email</label>
             <input id="id_email"
                    type="email"
                    class="form-control"
-                   :class="{'is-invalid': !fields['email']['valid']}"
                    placeholder="you@example.com"
                    v-model="email" />
-            <div class="invalid-feedback">
-              <span :key="index"
-                    v-for="(error, index) in fields['email']['errors']">
-                {{error}}</span>
-            </div>
-
           </div>
 
           <div class="form-group">
@@ -27,13 +31,7 @@
             <input id="id_password"
                    type="password"
                    class="form-control"
-                   :class="{'is-invalid': !fields['password']['valid']}"
                    v-model="password" />
-            <div class="invalid-feedback">
-              <span :key="index"
-                    v-for="(error, index) in fields['password']['errors']">
-                {{error}}</span>
-            </div>
           </div>
 
           <div class="signup-form-button">
@@ -48,72 +46,33 @@
 </template>
 
 <script>
-import Users from '../../../services/users';
-// import { REGISTRATION_URL } from '../../../constants/api';
-import { REGISTRATION_SUCCESS } from '../../../constants/messages';
-
 export default {
   name: 'UserSignup',
   data() {
     return {
       email: '',
       password: '',
-      fields: {
-        email: {
-          valid: true,
-          errors: [],
-        },
-        password: {
-          valid: true,
-          errors: [],
-        },
-      },
     };
+  },
+  computed: {
+    validationErrors() {
+      return Object.values(this.$store.getters['users/validationErrors']).flat();
+    },
+    hasValidationErrors() {
+      return this.validationErrors.length > 0;
+    },
   },
   methods: {
     submitData() {
-      this.$store.dispatch('users/resetErrors', {});
-      this.$store.dispatch('users/createUser', {});
-      // this.axios
-      //   .post(REGISTRATION_URL,
-      //     data)
-      //   .then((response) => {
-      //     this.registrationSuccess();
-      //   })
-      //   .catch((error) => {
-      //     const { data, status } = error.response;
-      //     if (status === 422) {
-      //       const { errors } = data;
-      //       this.updateValidationErrors(errors);
-      //     }
-      //   });
-    },
-    registrationSuccess() {
-      this.$router.push('/');
-      this.$store.commit('showAlertMessage', REGISTRATION_SUCCESS);
-      this.clearFormData();
-    },
-    updateValidationErrors(errors) {
-      const formFields = ['email', 'password'];
-      Object.entries(errors).forEach((entry) => {
-        const field = entry[0];
-        if (formFields.includes(field)) {
-          const newErrors = {};
-          newErrors[field] = { valid: false, errors: entry[1] };
-          Object.assign(this.fields, newErrors);
-        }
-      });
-    },
-    clearErrors() {
-      Object.entries(this.fields).forEach((field) => {
-        const fieldProperty = {};
-        fieldProperty[field[0]] = { valid: true, errors: [] };
-        Object.assign(this.fields, fieldProperty);
-      });
-    },
-    clearFormData() {
-      this.email = '';
-      this.password = '';
+      this.$store.dispatch('users/resetErrors');
+      this.$store.dispatch('users/resetValidationErrors');
+      const data = {
+        user: {
+          email: this.email,
+          password: this.password,
+        },
+      };
+      this.$store.dispatch('users/createUser', data);
     },
   },
 };

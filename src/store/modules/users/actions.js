@@ -9,13 +9,23 @@ const actions = {
       console.log(response);
     }).catch((error) => {
       commit('setLoading', DONE_TYPE);
-      if (error.response.status === 400) {
-        commit('addErrors', [BAD_REQUEST_MESSAGE]);
+      switch (error.response.status) {
+        case 400:
+          commit('addErrors', [BAD_REQUEST_MESSAGE]);
+          break;
+        case 422:
+          commit('addValidationErrors', error.response.data.errors);
+          break;
+        default:
+          break;
       }
     });
   },
   resetErrors: ({ commit }) => {
     commit('resetErrors');
+  },
+  resetValidationErrors: ({ commit }) => {
+    commit('resetValidationErrors');
   },
 };
 
