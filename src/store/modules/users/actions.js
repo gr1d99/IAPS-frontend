@@ -1,11 +1,11 @@
-import User from '../../../services/users';
+import Users from '../../../services/users';
 import { BAD_REQUEST_MESSAGE } from '../../../constants/messages';
 import { DONE_TYPE, WAITING_TYPE } from '../../../constants/async_types';
 
 const actions = {
   createUser: ({ commit }, data) => {
     commit('setLoading', WAITING_TYPE);
-    User.create(data).then((response) => {
+    Users.create(data).then((response) => {
       console.log(response);
     }).catch((error) => {
       commit('setLoading', DONE_TYPE);
