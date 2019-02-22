@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import { REGISTRATION_URL } from '../../../constants/api';
+import Users from '../../../services/users';
+// import { REGISTRATION_URL } from '../../../constants/api';
 import { REGISTRATION_SUCCESS } from '../../../constants/messages';
 
 export default {
@@ -71,26 +72,21 @@ export default {
   },
   methods: {
     submitData() {
-      this.clearErrors();
-      const data = {
-        user: {
-          email: this.email,
-          password: this.password,
-        },
-      };
-      this.axios
-        .post(REGISTRATION_URL,
-          data)
-        .then((response) => {
-          this.registrationSuccess();
-        })
-        .catch((error) => {
-          const { data, status } = error.response;
-          if (status === 422) {
-            const { errors } = data;
-            this.updateValidationErrors(errors);
-          }
-        });
+      this.$store.dispatch('users/resetErrors', {});
+      this.$store.dispatch('users/createUser', {});
+      // this.axios
+      //   .post(REGISTRATION_URL,
+      //     data)
+      //   .then((response) => {
+      //     this.registrationSuccess();
+      //   })
+      //   .catch((error) => {
+      //     const { data, status } = error.response;
+      //     if (status === 422) {
+      //       const { errors } = data;
+      //       this.updateValidationErrors(errors);
+      //     }
+      //   });
     },
     registrationSuccess() {
       this.$router.push('/');

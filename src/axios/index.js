@@ -1,5 +1,5 @@
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
-import axios from '../services';
+import api from '../api';
 
-Vue.use(VueAxios, axios);
+Vue.use(VueAxios, api);

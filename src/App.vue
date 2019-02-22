@@ -4,9 +4,10 @@
       <NavigationBar/>
     </div>
     <div class="container-fluid">
-      <div class="row" v-show="showAlertBox">
+      <div class="row">
         <div class="col-md-6 offset-md-3">
-          <AlertBox />
+          <AlertBox v-show="renderAlerts"
+                    :errors="errors"/>
         </div>
       </div>
       <router-view />
@@ -25,8 +26,11 @@ export default {
     AlertBox,
   },
   computed: {
-    showAlertBox() {
-      return this.$store.state.showAlertBox;
+    errors() {
+      return this.$store.getters['users/usersErrors'];
+    },
+    renderAlerts() {
+      return this.$store.getters['users/renderAlerts'];
     },
   },
 };

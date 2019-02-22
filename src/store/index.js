@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import users from './modules/users';
 import mutations from './mutations';
 
 Vue.use(Vuex);
@@ -11,4 +12,7 @@ export default new Vuex.Store({
     alertMessage: '',
   },
   mutations,
+  modules: {
+    users,
+  },
 });

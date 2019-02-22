@@ -1,11 +1,14 @@
 <template>
-  <div class="alert alert-success alert-dismissible fade show alert-box" role="alert">
-    {{alertMessage}}
+  <div class="alert-dismissible fade show alert-box" :class="alertClass" role="alert">
+    <ul>
+      <li v-for="(error, index) in errors" :key="index">{{error}}</li>
+    </ul>
+
     <button type="button"
             class="close"
             data-dismiss="alert"
             aria-label="Close"
-            @click="closeAlertBox">
+            @click="clearErrors">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -14,17 +17,21 @@
 <script>
 export default {
   name: 'AlertMessage',
+  props: ['errors'],
   data() {
     return {};
   },
   computed: {
-    alertMessage() {
-      return this.$store.state.alertMessage;
+    hasErrors() {
+      return this.errors.length > 0;
+    },
+    alertClass() {
+      return this.hasErrors ? 'alert alert-warning' : 'alert alert-success';
     },
   },
   methods: {
-    closeAlertBox() {
-      this.$store.commit('clearAlertMessage');
+    clearErrors() {
+      this.$store.dispatch('users/resetErrors');
     },
   },
 };
