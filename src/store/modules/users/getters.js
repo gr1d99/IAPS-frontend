@@ -1,8 +1,9 @@
 const getters = {
-  usersErrors: state => (state.errors),
-  validationErrors: state => (state.validationErrors),
   appLoading: state => (state.loading),
-  renderAlerts: state => (state.errors.length > 0),
+  usersErrors: state => (state.errors),
+  renderAlerts: state => (state.errors.length > 0 || state.created),
+  userCreated: state => (state.created),
+  validationErrors: state => (state.validationErrors),
 };
 
 export default getters;

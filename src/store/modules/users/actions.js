@@ -6,7 +6,9 @@ const actions = {
   createUser: ({ commit }, data) => {
     commit('setLoading', WAITING_TYPE);
     Users.create(data).then((response) => {
-      console.log(response);
+      const accessToken = response.headers['x-access-token'];
+      window.$cookies.set('jwt-token', accessToken);
+      commit('userCreated');
     }).catch((error) => {
       commit('setLoading', DONE_TYPE);
       switch (error.response.status) {
@@ -26,6 +28,9 @@ const actions = {
   },
   resetValidationErrors: ({ commit }) => {
     commit('resetValidationErrors');
+  },
+  resetUserCreated: ({ commit }) => {
+    commit('resetUserCreated');
   },
 };
 

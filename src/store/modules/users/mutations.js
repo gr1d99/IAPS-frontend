@@ -1,4 +1,7 @@
 const mutations = {
+  userCreated: (state) => {
+    Object.assign(state, { created: true });
+  },
   addErrors: (state, errors) => {
     Object.assign(state, { errors });
   },
@@ -17,6 +20,9 @@ const mutations = {
         Object.assign(state, { loading: true });
         break;
     }
+  },
+  resetUserCreated: (state) => {
+    Object.assign(state, { created: false });
   },
   resetErrors: (state) => {
     Object.assign(state, { errors: [] });

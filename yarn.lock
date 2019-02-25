@@ -8335,6 +8335,10 @@ vue-axios@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.4.tgz#a9d298f7e876f9a87feb336b37adcbce34ff9f9f"
 
+vue-cookies@^1.5.12:
+  version "1.5.12"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.5.12.tgz#a78bd0eda078c1fbf4a6806505343a825c77a880"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
