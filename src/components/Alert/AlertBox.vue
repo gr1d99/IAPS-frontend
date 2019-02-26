@@ -3,10 +3,9 @@
     <ul class="errors-alert" v-show="hasErrors">
       <li v-for="(error, index) in errors" :key="index">{{error}}</li>
     </ul>
-
-    <p class="text-center notification-alert" v-show="hasNotification">
-      {{this.notification}}
-    </p>
+    <ul class="notification-alert" v-show="hasNotifications">
+      <li v-for="(notification, index) in notifications" :key="index">{{notification}}</li>
+    </ul>
 
     <button type="button"
             class="close"
@@ -20,8 +19,8 @@
 
 <script>
 export default {
-  name: 'AlertMessage',
-  props: ['errors', 'notification'],
+  name: 'AlertBox',
+  props: ['errors', 'notifications'],
   data() {
     return {};
   },
@@ -29,8 +28,8 @@ export default {
     hasErrors() {
       return this.errors.length > 0;
     },
-    hasNotification() {
-      return this.notification.length > 0;
+    hasNotifications() {
+      return this.notifications.length > 0;
     },
     alertClass() {
       return this.hasErrors ? 'alert alert-warning' : 'alert alert-success';
@@ -38,8 +37,7 @@ export default {
   },
   methods: {
     clearAlerts() {
-      this.$store.dispatch('resetErrors');
-      this.$store.dispatch('users/resetUserCreated');
+      this.$root.$emit('reset-app-wide-errors-and-messages');
     },
   },
 };
@@ -53,5 +51,8 @@ export default {
 }
 .errors-alert, .notification-alert {
   font-size: 12px;
+}
+.errors-alert li, .notification-alert li {
+  list-style: none;
 }
 </style>

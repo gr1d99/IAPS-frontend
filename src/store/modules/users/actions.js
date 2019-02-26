@@ -1,6 +1,6 @@
 const actions = {
-  resetValidationErrors: ({ commit }) => {
-    commit('resetValidationErrors');
+  resetErrors: ({ commit }) => {
+    commit('resetErrors');
   },
   resetUserCreated: ({ commit }) => {
     commit('resetUserCreated');

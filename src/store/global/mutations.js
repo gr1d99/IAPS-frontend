@@ -12,9 +12,17 @@ const mutations = {
         break;
     }
   },
-  addErrors: (state, errors) => (Object.assign(state, { errors })),
+  addErrors: (state, errors) => {
+    Object.assign(state, { errors });
+  },
   resetErrors: (state) => {
     Object.assign(state, { errors: [] });
+  },
+  addNotifications: (state, notifications) => {
+    Object.assign(state, { notifications });
+  },
+  resetNotifications: (state) => {
+    Object.assign(state, { notifications: [] });
   },
 };
 

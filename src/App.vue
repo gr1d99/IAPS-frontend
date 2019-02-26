@@ -5,10 +5,10 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-12">
           <AlertBox v-show="renderAlerts"
                     :errors="errors"
-                    :notification="notification"/>
+                    :notifications="notifications"/>
         </div>
       </div>
       <router-view />
@@ -19,7 +19,6 @@
 <script>
 import NavigationBar from './components/Navigation/NavigationBar'; // eslint-disable-line
 import AlertBox from './components/Alert/AlertBox.vue';
-import { REGISTRATION_SUCCESS } from './constants/messages';
 
 export default {
   name: 'app',
@@ -30,6 +29,11 @@ export default {
 
     this.$root.$on('user-logged-out', () => {
       this.isLoggedIn = this.checkLogin();
+    });
+
+    this.$root.$on('reset-app-wide-errors-and-messages', () => {
+      this.$store.dispatch('resetErrors');
+      this.$store.dispatch('resetNotifications');
     });
   },
   components: {
@@ -50,14 +54,11 @@ export default {
     errors() {
       return this.$store.getters.fetchErrors;
     },
-    notification() {
-      if (this.$store.getters['users/userCreated']) {
-        return REGISTRATION_SUCCESS;
-      }
-      return '';
+    notifications() {
+      return this.$store.getters.fetchNotifications;
     },
     renderAlerts() {
-      return this.errors.length > 0;
+      return this.errors.length > 0 || this.notifications.length > 0;
     },
   },
 };

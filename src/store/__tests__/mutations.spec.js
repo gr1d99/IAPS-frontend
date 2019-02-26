@@ -1,4 +1,4 @@
-import mutations from '../modules/global/mutations';
+import mutations from '../global/mutations';
 
 const { showAlertMessage, clearAlertMessage } = mutations;
 

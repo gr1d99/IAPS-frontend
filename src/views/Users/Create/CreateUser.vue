@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     validationErrors() {
-      return Object.values(this.$store.getters['users/validationErrors']).flat();
+      return Object.values(this.$store.getters['users/userErrors']).flat();
     },
     hasValidationErrors() {
       return this.validationErrors.length > 0;

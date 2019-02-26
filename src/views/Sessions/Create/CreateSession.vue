@@ -74,19 +74,26 @@ export default {
           password: this.password,
         },
       };
-      this.$store.dispatch('resetErrors');
+      this.$root.$emit('reset-all-messages');
+
       this.$store.dispatch('sessions/resetErrors');
+
       this.$store.commit('setLoading', WAITING_TYPE);
+
       Sessions.create(data)
         .then((response) => {
           this.$store.commit('setLoading', DONE_TYPE);
           const accessToken = response.headers['x-access-token'];
+
           this.$cookies.set('jwt-token', accessToken);
+
           this.$root.$emit('user-logged-in');
+
           this.$router.push('/');
         })
         .catch((error) => {
           this.$store.commit('setLoading', DONE_TYPE);
+
           switch (error.response.status) {
             case 400:
               this.$store.dispatch('addErrors', [BAD_REQUEST_MESSAGE]);
