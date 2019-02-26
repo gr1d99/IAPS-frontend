@@ -1,5 +1,4 @@
 const getters = {
-  appLoading: state => (state.loading),
   usersErrors: state => (state.errors),
   renderAlerts: state => (state.errors.length > 0 || state.created),
   userCreated: state => (state.created),

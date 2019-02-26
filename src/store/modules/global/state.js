@@ -1,4 +1,3 @@
 export default {
-  showAlertBox: false,
-  alertMessage: '',
+  loading: false,
 };

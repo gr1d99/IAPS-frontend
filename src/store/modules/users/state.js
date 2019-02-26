@@ -1,7 +1,6 @@
 const state = {
   errors: [],
   validationErrors: [],
-  loading: false,
   created: false,
 };
 
