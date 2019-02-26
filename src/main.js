@@ -5,6 +5,7 @@ import router from './router';
 import store from './store';
 import './axios';
 import './cookies';
+import './jwt';
 
 Vue.config.productionTip = false;
 

@@ -1,7 +1,7 @@
 <template>
   <div id="iaas">
     <div class="header">
-      <NavigationBar/>
+      <NavigationBar :isLoggedIn="this.isLoggedIn"/>
     </div>
     <div class="container-fluid">
       <div class="row">
@@ -23,9 +23,28 @@ import { REGISTRATION_SUCCESS } from './constants/messages';
 
 export default {
   name: 'app',
+  mounted() {
+    this.$root.$on('user-logged-in', () => {
+      this.isLoggedIn = this.checkLogin();
+    });
+
+    this.$root.$on('user-logged-out', () => {
+      this.isLoggedIn = this.checkLogin();
+    });
+  },
   components: {
     NavigationBar,
     AlertBox,
+  },
+  data() {
+    return {
+      isLoggedIn: this.checkLogin(),
+    };
+  },
+  methods: {
+    checkLogin() {
+      return !!this.$jwt.decode();
+    },
   },
   computed: {
     errors() {

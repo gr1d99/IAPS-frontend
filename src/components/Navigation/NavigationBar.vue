@@ -17,7 +17,14 @@
        <li class="nav-item active">
          <router-link
            class="nav-link"
-           :to="{ name: 'SignUp' }">Sign up</router-link>
+           :to="{ name: 'CreateUser' }"
+           v-if="!this.isLoggedIn">Sign up</router-link>
+       </li>
+
+       <li class="nav-item">
+         <a class="nav-link"
+           @click="logoutUser"
+           v-if="this.isLoggedIn">Logout</a>
        </li>
      </ul>
    </div>
@@ -27,6 +34,14 @@
 <script>
 export default {
   name: 'NavigationBar',
+  props: ['isLoggedIn'],
+  data() { return {}; },
+  methods: {
+    logoutUser() {
+      this.$cookies.remove('jwt-token');
+      this.$root.$emit('user-logged-out');
+    },
+  },
 };
 </script>
 

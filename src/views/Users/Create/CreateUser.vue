@@ -46,8 +46,10 @@
 </template>
 
 <script>
+import createUserMixin from './mixins/createUserMixin';
+
 export default {
-  name: 'UserSignup',
+  name: 'CreateUser',
   data() {
     return {
       email: '',
@@ -64,20 +66,13 @@ export default {
   },
   methods: {
     submitData() {
-      this.$store.dispatch('users/resetErrors');
-      this.$store.dispatch('users/resetValidationErrors');
-      const data = {
-        user: {
-          email: this.email,
-          password: this.password,
-        },
-      };
-      this.$store.dispatch('users/createUser', data);
+      this.createUser();
     },
   },
+  mixins: [createUserMixin],
 };
 </script>
 
 <style lang="scss" scoped>
-@import "assets/signup_page";
+@import "assets/create_user";
 </style>
