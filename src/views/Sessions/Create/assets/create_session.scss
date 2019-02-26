@@ -1,0 +1,28 @@
+@import "../../../../assets/main";
+
+.signin-form-card {
+  margin-top: rem(60px);
+}
+
+.card-text {
+  margin-top: rem(-1px);
+}
+
+.signin-form-button {
+  padding-top: rem(10px);
+}
+
+.signin-form-button button {
+  color: white;
+}
+
+.signin-error-box {
+  padding-bottom: 0;
+}
+.errors {
+  padding-left: 0;
+}
+.error-item {
+  list-style: none;
+  font-size: 12px;
+}

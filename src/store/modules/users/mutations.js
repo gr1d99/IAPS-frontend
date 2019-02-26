@@ -11,9 +11,6 @@ const mutations = {
   resetUserCreated: (state) => {
     Object.assign(state, { created: false });
   },
-  resetErrors: (state) => {
-    Object.assign(state, { errors: [] });
-  },
   resetValidationErrors: (state) => {
     Object.assign(state, { validationErrors: [] });
   },

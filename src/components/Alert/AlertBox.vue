@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     clearAlerts() {
-      this.$store.dispatch('users/resetErrors');
+      this.$store.dispatch('resetErrors');
       this.$store.dispatch('users/resetUserCreated');
     },
   },

@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     errors() {
-      return this.$store.getters['users/usersErrors'];
+      return this.$store.getters.fetchErrors;
     },
     notification() {
       if (this.$store.getters['users/userCreated']) {
@@ -57,7 +57,7 @@ export default {
       return '';
     },
     renderAlerts() {
-      return this.$store.getters['users/renderAlerts'];
+      return this.errors.length > 0;
     },
   },
 };

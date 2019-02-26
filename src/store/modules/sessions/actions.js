@@ -2,7 +2,7 @@ export default {
   addErrors: ({ commit }, errors) => {
     commit('addErrors', errors);
   },
-  resetErrors: ({ commit }) => {
+  resetErrors: ({ commit }, errors) => {
     commit('resetErrors');
   },
 };

@@ -21,6 +21,13 @@
            v-if="!this.isLoggedIn">Sign up</router-link>
        </li>
 
+       <li class="nav-item active">
+         <router-link
+           class="nav-link"
+           :to="{ name: 'CreateSession' }"
+           v-if="!this.isLoggedIn">Sign in</router-link>
+       </li>
+
        <li class="nav-item">
          <a class="nav-link"
            @click="logoutUser"
