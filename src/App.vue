@@ -19,6 +19,7 @@
 <script>
 import NavigationBar from './components/Navigation/NavigationBar'; // eslint-disable-line
 import AlertBox from './components/Alert/AlertBox.vue';
+import authenticationMixin from './mixins/authenticationMixin';
 
 export default {
   name: 'app',
@@ -40,16 +41,6 @@ export default {
     NavigationBar,
     AlertBox,
   },
-  data() {
-    return {
-      isLoggedIn: this.checkLogin(),
-    };
-  },
-  methods: {
-    checkLogin() {
-      return !!this.$jwt.decode();
-    },
-  },
   computed: {
     errors() {
       return this.$store.getters.fetchErrors;
@@ -61,6 +52,7 @@ export default {
       return this.errors.length > 0 || this.notifications.length > 0;
     },
   },
+  mixins: [authenticationMixin],
 };
 </script>
 

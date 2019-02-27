@@ -25,6 +25,8 @@ const mixin = {
 
         this.$cookies.set('jwt-token', accessToken);
 
+        this.$store.dispatch('users/setUserRole');
+
         this.$store.commit('addNotifications', [REGISTRATION_SUCCESS]);
 
         this.$root.$emit('user-logged-in');
