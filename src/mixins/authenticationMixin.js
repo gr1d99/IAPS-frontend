@@ -10,10 +10,19 @@ export default {
       return !!this.$jwt.decode();
     },
     checkAdmin() {
-      return !!(
-        this.$jwt.decode() && this.$jwt.decode()
+      this.isLoggedIn = this.checkLogin();
+
+      if (!this.isLoggedIn) {
+        return false;
+      }
+
+      if (this.isLoggedIn && !!this.$jwt.decode().role) {
+        return this.$jwt.decode()
           .role
-          .toString() === process.env.VUE_APP_ADMIN_ROLE_NAME.toString());
+          .toString() === process.env.VUE_APP_ADMIN_ROLE_NAME.toString();
+      }
+
+      return false;
     },
   },
 };

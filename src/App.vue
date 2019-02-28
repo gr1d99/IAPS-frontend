@@ -1,7 +1,8 @@
 <template>
   <div id="iaas">
     <div class="header">
-      <NavigationBar :isLoggedIn="this.isLoggedIn"/>
+      <NavigationBar :isLoggedIn="this.isLoggedIn"
+                     :isAdmin="this.isAdmin"/>
     </div>
     <div class="container-fluid">
       <div class="row">
@@ -26,6 +27,7 @@ export default {
   mounted() {
     this.$root.$on('user-logged-in', () => {
       this.isLoggedIn = this.checkLogin();
+      this.isAdmin = this.checkAdmin();
     });
 
     this.$root.$on('user-logged-out', () => {
@@ -57,5 +59,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../node_modules/bootswatch/dist/yeti/variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootswatch/dist/yeti/bootswatch';
 </style>
