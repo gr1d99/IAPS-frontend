@@ -1,7 +1,7 @@
 <template>
   <div class="iaas home-page">
     <div v-if="isAdmin">
-      Admin
+      <AdminHomePage />
     </div>
     <div v-else>
       None Admin
@@ -11,10 +11,14 @@
 
 <script>
 import authenticationMixin from '../../mixins/authenticationMixin';
+import AdminHomePage from '../../components/Admin/HomePage.vue';
 
 export default {
   name: 'HomePage',
   mixins: [authenticationMixin],
+  components: {
+    AdminHomePage,
+  },
 };
 </script>
 
