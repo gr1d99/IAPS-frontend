@@ -105,7 +105,8 @@
           <div class="col-md-12">
             <input type="submit"
                    class="btn btn-warning btn-send new-opening-form-btn"
-                   value="Send message" @click="createOpening">
+                   value="Submit"
+                   @click="createOpening">
           </div>
         </div>
       </form>
@@ -116,7 +117,10 @@
 <script>
 import DatePicker from 'vuejs-datepicker';
 
-import { OPENING_CREATED } from '../../../constants/messages';
+import {
+  BAD_REQUEST_MESSAGE,
+  OPENING_CREATED,
+} from '../../../constants/messages';
 
 export default {
   name: 'CreateOpening',
@@ -144,13 +148,29 @@ export default {
   },
   methods: {
     createOpening() {
-      this.$store.dispatch('openings/createOpening', this.opening)
-        .then(() => {
-          this.clearFormData();
-          this.$router.push({ name: 'Home' });
-          console.log(OPENING_CREATED)
-          this.$store.dispatch('addNotification', [OPENING_CREATED]);
-        });
+      this.$store.dispatch(
+        'openings/createOpening',
+        this.opening,
+      ).then(() => {
+        this.$store.dispatch('openings/clearErrors');
+
+        this.clearFormData();
+
+        this.$router.push({ name: 'Home' });
+
+        this.$store.dispatch('addNotification', [OPENING_CREATED]);
+      }).catch((error) => {
+        switch (error.response.status) {
+          case 400:
+            this.$store.dispatch('addErrors', [BAD_REQUEST_MESSAGE]);
+            break;
+          case 422:
+            this.$store.dispatch('openings/addErrors', error.response.data.errors);
+            break;
+          default:
+            break;
+        }
+      });
     },
     clearFormData() {
       this.opening.title = '';
