@@ -9,6 +9,16 @@ import './jwt';
 
 Vue.config.productionTip = false;
 
+const accessToken = Vue.$jwt.getToken();
+
+const configureAxios = () => {
+  if (accessToken) {
+    Vue.axios.defaults.headers.common['X-Access-Token'] = accessToken;
+  }
+};
+
+configureAxios();
+
 new Vue({
   router,
   store,

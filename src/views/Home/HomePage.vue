@@ -14,11 +14,6 @@ import authenticationMixin from '../../mixins/authenticationMixin';
 
 export default {
   name: 'HomePage',
-  mounted() {
-    this.$root.$on('user-logged-out', () => {
-      this.isAdmin = this.checkAdmin();
-    });
-  },
   mixins: [authenticationMixin],
 };
 </script>

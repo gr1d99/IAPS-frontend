@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <router-link class="navbar-brand" :to="{ name: 'Home' }">IAAS</router-link>
     <button class="navbar-toggler"
             type="button"
@@ -19,7 +19,7 @@
             :to="{ name: 'Home' }">Home <span class="sr-only">(current)</span></router-link>
         </li>
         <li class="nav-item" v-if="this.isLoggedIn && this.isAdmin">
-          <a href="#" class="nav-link">Openings</a>
+          <router-link :to="{ name: 'CreateOpening' }" class="nav-link">Create Opening</router-link>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

@@ -32,6 +32,8 @@ export default {
 
     this.$root.$on('user-logged-out', () => {
       this.isLoggedIn = this.checkLogin();
+      this.isAdmin = this.checkAdmin();
+      this.$router.push('/');
     });
 
     this.$root.$on('reset-app-wide-errors-and-messages', () => {
