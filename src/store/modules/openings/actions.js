@@ -11,9 +11,9 @@ export default {
   addErrors({ commit }, errors) {
     commit('addErrors', errors);
   },
-  fetchAllOpenings({ commit, dispatch }) {
+  fetchAllOpenings({ commit, dispatch }, page = 1) {
     dispatch('setAppLoading', WAITING_TYPE, { root: true });
-    Openings.all()
+    Openings.all(page)
       .then((response) => {
         commit('addOpenings', response.data);
         dispatch('setAppLoading', DONE_TYPE, { root: true });

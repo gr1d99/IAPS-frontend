@@ -8,7 +8,7 @@
             <a class="nav-link active" id="openings-tab" data-toggle="tab" href="#openings" role="tab" aria-controls="home" aria-selected="true">Openings</a>
           </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content" id="adminTabContent">
           <div class="tab-pane fade show active" id="openings" role="tabpanel" aria-labelledby="openings-tab">
             <div class="openings-wrapper">
               <div class="all-openings-btn">
@@ -17,7 +17,7 @@
                 </button>
               </div>
 
-              <div class="openings-content">
+              <div class="d-flex justify-content-center openings-content">
                 <table class="table">
                   <thead>
                   <tr>
@@ -30,6 +30,10 @@
                   <OpeningRow :openings="this.openings.data"/>
                 </table>
               </div>
+              <OpeningsPagination
+                :links="this.openings.links"
+                :meta="this.openings.meta"
+                @page-requested="fetchOpeningsByPage"/>
             </div>
           </div>
         </div>
@@ -41,12 +45,14 @@
 import appLoadingMixin from '../../mixins/appLoadingMixin';
 import AppLoading from '../Loading/AppLoading.vue';
 import OpeningRow from './OpeningRow.vue';
+import OpeningsPagination from './OpeningsPagination.vue';
 
 export default {
   name: 'AdminHomePage',
   components: {
     AppLoading,
     OpeningRow,
+    OpeningsPagination,
   },
   data() {
     return {};
@@ -57,6 +63,11 @@ export default {
   computed: {
     openings() {
       return this.$store.state.openings.responseData;
+    },
+  },
+  methods: {
+    fetchOpeningsByPage(page) {
+      this.$store.dispatch('openings/fetchAllOpenings', page);
     },
   },
   mixins: [appLoadingMixin],

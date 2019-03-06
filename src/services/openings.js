@@ -4,7 +4,7 @@ const openings = {
   create(data) {
     return api.post('/openings', data);
   },
-  all() { return api.get('/openings'); },
+  all(page) { return api.get(`/openings?page[number]=${page}`); },
 };
 
 export default openings;
