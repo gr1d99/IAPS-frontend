@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <AppLoading v-if="this.appLoading" />
+  <div class="container" v-else>
     <div class="row">
       <div class="col col-lg-8 offset-2">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -11,8 +12,8 @@
           <div class="tab-pane fade show active" id="openings" role="tabpanel" aria-labelledby="openings-tab">
             <div class="openings-wrapper">
               <div class="all-openings-btn">
-                <button type="button" class="btn btn-primary">
-                  All <span class="badge badge-light">4</span>
+                <button type="button" class="btn btn-primary" v-if="!this.appLoading">
+                  All <span class="badge badge-light">{{ this.openings.meta["total-count"] }}</span>
                 </button>
               </div>
 
@@ -26,34 +27,7 @@
                     <th scope="col">Location</th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>
-                      <a href="#">Andela</a>
-                    </td>
-                    <td>
-                      True
-                    </td>
-                    <td>Nairobi, Kenya</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>
-                      <a href="#">Africas Talking</a>
-                    </td>
-                    <td>False</td>
-                    <td>Nairobi, Kenya</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>
-                      <a href="#">Ceramics Kenya</a>
-                    </td>
-                    <td>True</td>
-                    <td>Nakuru, Kenya</td>
-                  </tr>
-                  </tbody>
+                  <OpeningRow :openings="this.openings.data"/>
                 </table>
               </div>
             </div>
@@ -64,11 +38,28 @@
   </div>
 </template>
 <script>
+import appLoadingMixin from '../../mixins/appLoadingMixin';
+import AppLoading from '../Loading/AppLoading.vue';
+import OpeningRow from './OpeningRow.vue';
+
 export default {
   name: 'AdminHomePage',
+  components: {
+    AppLoading,
+    OpeningRow,
+  },
   data() {
     return {};
   },
+  created() {
+    this.$store.dispatch('openings/fetchAllOpenings');
+  },
+  computed: {
+    openings() {
+      return this.$store.state.openings.responseData;
+    },
+  },
+  mixins: [appLoadingMixin],
 };
 </script>
 <style lang="scss" scoped>

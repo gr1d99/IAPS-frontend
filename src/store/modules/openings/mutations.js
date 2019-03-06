@@ -5,4 +5,7 @@ export default {
   clearErrors(state) {
     Object.assign(state, { errors: {} });
   },
+  addOpenings(state, responseData) {
+    Object.assign(state, { responseData });
+  },
 };

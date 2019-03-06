@@ -1,5 +1,5 @@
 import Openings from '../../../services/openings';
-// import { BAD_REQUEST_MESSAGE } from '../../../constants/messages';
+import { DONE_TYPE, WAITING_TYPE } from '../../../constants/async_types';
 
 export default {
   createOpening(_, payload) {
@@ -10,5 +10,13 @@ export default {
   },
   addErrors({ commit }, errors) {
     commit('addErrors', errors);
+  },
+  fetchAllOpenings({ commit, dispatch }) {
+    dispatch('setAppLoading', WAITING_TYPE, { root: true });
+    Openings.all()
+      .then((response) => {
+        commit('addOpenings', response.data);
+        dispatch('setAppLoading', DONE_TYPE, { root: true });
+      });
   },
 };

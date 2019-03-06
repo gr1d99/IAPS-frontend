@@ -78,7 +78,7 @@ export default {
 
       this.$store.dispatch('sessions/resetErrors');
 
-      this.$store.commit('setLoading', WAITING_TYPE);
+      this.$store.dispatch('setAppLoading', WAITING_TYPE);
 
       Sessions.create(data)
         .then((response) => {

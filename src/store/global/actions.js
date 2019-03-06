@@ -11,4 +11,7 @@ export default {
   resetNotifications: ({ commit }) => {
     commit('resetNotifications');
   },
+  setAppLoading: ({ commit }, status) => {
+    commit('setLoading', status);
+  },
 };

@@ -24,23 +24,6 @@ import authenticationMixin from './mixins/authenticationMixin';
 
 export default {
   name: 'app',
-  mounted() {
-    this.$root.$on('user-logged-in', () => {
-      this.isLoggedIn = this.checkLogin();
-      this.isAdmin = this.checkAdmin();
-    });
-
-    this.$root.$on('user-logged-out', () => {
-      this.isLoggedIn = this.checkLogin();
-      this.isAdmin = this.checkAdmin();
-      this.$router.push('/');
-    });
-
-    this.$root.$on('reset-app-wide-errors-and-messages', () => {
-      this.$store.dispatch('resetErrors');
-      this.$store.dispatch('resetNotifications');
-    });
-  },
   components: {
     NavigationBar,
     AlertBox,

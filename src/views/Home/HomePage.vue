@@ -15,10 +15,10 @@ import AdminHomePage from '../../components/Admin/HomePage.vue';
 
 export default {
   name: 'HomePage',
-  mixins: [authenticationMixin],
   components: {
     AdminHomePage,
   },
+  mixins: [authenticationMixin],
 };
 </script>
 
