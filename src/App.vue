@@ -4,8 +4,7 @@
       <NavigationBar :isLoggedIn="this.isLoggedIn"
                      :isAdmin="this.isAdmin"/>
     </div>
-    <PageNotFound v-if="!pageFound"/>
-    <div class="container-fluid" v-else>
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
           <AlertBox v-show="renderAlerts"
@@ -23,10 +22,8 @@
 import NavigationBar from './components/Navigation/NavigationBar'; // eslint-disable-line
 import AlertBox from './components/Alert/AlertBox.vue';
 import AppLoading from './components/Loading/AppLoading.vue';
-import PageNotFound from './components/Errors/PageNotFound.vue';
 import authenticationMixin from './mixins/authenticationMixin';
 import appLoadingMixin from './mixins/appLoadingMixin';
-import errorsMixin from './mixins/errorsMixin';
 
 export default {
   name: 'app',
@@ -34,7 +31,6 @@ export default {
     NavigationBar,
     AlertBox,
     AppLoading,
-    PageNotFound,
   },
   computed: {
     errors() {
@@ -50,7 +46,6 @@ export default {
   mixins: [
     authenticationMixin,
     appLoadingMixin,
-    errorsMixin,
   ],
 };
 </script>

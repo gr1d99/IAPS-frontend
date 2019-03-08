@@ -24,10 +24,17 @@ export default {
     Openings.get(openingId)
       .then((response) => {
         dispatch('setAppLoading', DONE_TYPE, { root: true });
+        dispatch('openingNotFound', false);
         commit('addOpening', response.data);
       })
       .catch((error) => {
-        dispatch('setPageNotFound', false, { root: true });
+        if (error.response.status) {
+          dispatch('setAppLoading', DONE_TYPE, { root: true });
+          dispatch('openingNotFound', true);
+        }
       });
+  },
+  openingNotFound: ({ commit }, status) => {
+    commit('openingNotFound', status);
   },
 };

@@ -24,9 +24,6 @@ const mutations = {
   resetNotifications: (state) => {
     Object.assign(state, { notifications: [] });
   },
-  setPageNotFound: (state, status) => {
-    Object.assign(state, { pageFound: status });
-  },
 };
 
 export default mutations;

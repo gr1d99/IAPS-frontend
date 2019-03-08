@@ -11,12 +11,10 @@ import CreateOpening from '../views/Admin/Opening/CreateOpening.vue';
 
 import ShowOpening from '../components/Openings/ShowOpening.vue';
 
-import PageNotFound from '../components/Errors/PageNotFound.vue';
-
-
 Vue.use(Router);
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -48,11 +46,6 @@ const router = new Router({
       path: '/openings/:id',
       name: 'ShowOpening',
       component: ShowOpening,
-    },
-    {
-      path: '/not_found',
-      name: 'PageNotFound',
-      component: PageNotFound,
     },
   ],
 });

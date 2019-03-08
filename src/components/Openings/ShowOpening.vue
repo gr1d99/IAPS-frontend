@@ -1,26 +1,31 @@
 <template>
-  <div class="container" v-if="openingData.data">
+  <div class="container">
     <div class="row">
       <div class="col-2"></div>
       <div class="col">
         <div class="opening-card">
           <div class="card d-flex justify-content-center">
-            <div class="card-body">
-              <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }}</h4>
-              <hr/>
-              <div class="d-flex flex-column justify-content-start">
-                <span class="opening-location pt-2 pl-2">Location: {{this.openingData.data.attributes.location}}</span>
-                <span class="opening-start-date pt-2 pl-2">Start Date: {{this.openingData.data.attributes['start-date']}}</span>
-                <span class="opening-end-date pb-2 pl-2">End Date: {{this.openingData.data.attributes['end-date']}}</span>
+            <div v-if="!openingNotFound">
+              <div class="card-body" v-if="openingData.data">
+                <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }}</h4>
+                <hr/>
+                <div class="d-flex flex-column justify-content-start">
+                  <span class="opening-location pt-2 pl-2">Location: {{this.openingData.data.attributes.location}}</span>
+                  <span class="opening-start-date pt-2 pl-2">Start Date: {{this.openingData.data.attributes['start-date']}}</span>
+                  <span class="opening-end-date pb-2 pl-2">End Date: {{this.openingData.data.attributes['end-date']}}</span>
+                </div>
+                <hr/>
+                <div class="d-flex flex-column pl-2">
+                  <p>{{this.openingData.data.attributes.qualifications }}</p>
+                  <p class="card-text">{{ this.openingData.data.attributes.qualifications }}</p>
+                </div>
+                <div class="d-flex flex-column mt-3">
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
               </div>
-              <hr/>
-              <div class="d-flex flex-column pl-2">
-                <p>{{this.openingData.data.attributes.qualifications }}</p>
-                <p class="card-text">{{ this.openingData.data.attributes.qualifications }}</p>
-              </div>
-              <div class="d-flex flex-column mt-3">
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
+            </div>
+            <div class="card-body" v-else>
+              <h4>Oops!! It seems the opening you are looking for does not exist</h4>
             </div>
           </div>
         </div>
@@ -40,7 +45,7 @@ export default {
     this.$store.dispatch('openings/fetchOpening', this.$route.params.id);
   },
   computed: {
-    ...mapGetters('openings', ['openingData']),
+    ...mapGetters('openings', ['openingData', 'openingNotFound']),
   },
   mixins: [appLoadingMixin],
 };
