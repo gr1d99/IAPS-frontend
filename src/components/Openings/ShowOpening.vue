@@ -1,26 +1,31 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-2"></div>
-      <div class="col">
+      <div class="col-lg-3"></div>
+      <div class="col col-lg-6">
         <div class="opening-card">
           <div class="card d-flex justify-content-center">
             <div v-if="!openingNotFound">
               <div class="card-body" v-if="openingData.data">
-                <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }}</h4>
+                <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }} <small class="float-right badge badge-pill" style="font-size: 70%" :class="open ? 'badge-success': 'badge-danger'">{{ open ? 'open': 'closed' }}</small></h4>
                 <hr/>
                 <div class="d-flex flex-column justify-content-start">
-                  <span class="opening-location pt-2 pl-2">Location: {{this.openingData.data.attributes.location}}</span>
-                  <span class="opening-start-date pt-2 pl-2">Start Date: {{this.openingData.data.attributes['start-date']}}</span>
-                  <span class="opening-end-date pb-2 pl-2">End Date: {{this.openingData.data.attributes['end-date']}}</span>
+                  <span class="opening-location pt-2 pl-2"><strong class="location-header">Location:</strong> {{this.openingData.data.attributes.location}}</span>
+                  <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {{this.openingData.data.attributes['start-date']}}</span>
+                  <span class="opening-end-date pb-2 pl-2"><strong class="end-date-header">End Date:</strong> {{this.openingData.data.attributes['end-date']}}</span>
                 </div>
                 <hr/>
                 <div class="d-flex flex-column pl-2">
-                  <p>{{this.openingData.data.attributes.qualifications }}</p>
+                  <strong class="opening-description">Description</strong>
+                  <p>{{this.openingData.data.attributes.description }}</p>
+                  <strong class="opening-description">Qualifications</strong>
                   <p class="card-text">{{ this.openingData.data.attributes.qualifications }}</p>
                 </div>
-                <div class="d-flex flex-column mt-3">
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="d-flex flex-column mt-3" v-if="open">
+                  <span class="admin-action-buttons pl-2" v-if="isAdmin">
+                    <a href="#" class="card-link btn-info badge">Edit</a>
+                    <a href="#" class="card-link btn-warning badge">Delete</a>
+                  </span>
                 </div>
               </div>
             </div>
@@ -30,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="col-2"></div>
+      <div class="col-lg-3"></div>
     </div>
   </div>
 </template>
@@ -38,6 +43,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import appLoadingMixin from '../../mixins/appLoadingMixin';
+import authenticationMixin from '../../mixins/authenticationMixin';
 
 export default {
   name: 'ShowOpening',
@@ -46,8 +52,11 @@ export default {
   },
   computed: {
     ...mapGetters('openings', ['openingData', 'openingNotFound']),
+    open() {
+      return this.openingData.data.attributes.open;
+    },
   },
-  mixins: [appLoadingMixin],
+  mixins: [appLoadingMixin, authenticationMixin],
 };
 </script>
 
@@ -63,5 +72,14 @@ export default {
 }
 .opening-location {
   background-color: ghostwhite;
+}
+.location-header {
+  padding-right: 20px;
+}
+.start-date-header {
+  padding-right: 8px;
+}
+.end-date-header {
+  padding-right: 17px;
 }
 </style>

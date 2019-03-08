@@ -6,7 +6,7 @@
       <router-link :to="{ name: 'ShowOpening', params: { id: opening.id }}">{{ opening.attributes.title }}</router-link>
     </td>
     <td>
-      True
+      <small class="bagde badge-pill" :class="opening.attributes.open ? 'badge-success': 'badge-danger'">{{ opening.attributes.open ? 'open': 'closed' }}</small>
     </td>
     <td>{{ opening.attributes.location }}</td>
   </tr>
