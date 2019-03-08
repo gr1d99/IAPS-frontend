@@ -1,6 +1,5 @@
 <template>
-  <AppLoading v-if="this.appLoading" />
-  <div class="container" v-else>
+  <div class="container" v-if="this.openings.meta">
     <div class="row">
       <div class="col col-lg-8 offset-2">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -12,7 +11,7 @@
           <div class="tab-pane fade show active" id="openings" role="tabpanel" aria-labelledby="openings-tab">
             <div class="openings-wrapper">
               <div class="all-openings-btn">
-                <button type="button" class="btn btn-primary" v-if="!this.appLoading">
+                <button type="button" class="btn btn-primary">
                   All <span class="badge badge-light">{{ this.openings.meta["total-count"] }}</span>
                 </button>
               </div>
@@ -43,26 +42,26 @@
 </template>
 <script>
 import appLoadingMixin from '../../mixins/appLoadingMixin';
-import AppLoading from '../Loading/AppLoading.vue';
 import OpeningRow from './OpeningRow.vue';
 import OpeningsPagination from './OpeningsPagination.vue';
 
 export default {
   name: 'AdminHomePage',
   components: {
-    AppLoading,
     OpeningRow,
     OpeningsPagination,
   },
   data() {
-    return {};
+    return {
+      opening: this.openings,
+    };
   },
   created() {
     this.$store.dispatch('openings/fetchAllOpenings');
   },
   computed: {
     openings() {
-      return this.$store.state.openings.responseData;
+      return this.$store.state.openings.openingsData;
     },
   },
   methods: {

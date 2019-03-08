@@ -3,7 +3,7 @@
   <tr v-for="(opening) in this.openings" :key="opening.id">
     <th scope="row">{{ opening.id }}</th>
     <td>
-      <a href="#">{{ opening.attributes.title }}</a>
+      <router-link :to="{ name: 'ShowOpening', params: { id: opening.id }}">{{ opening.attributes.title }}</router-link>
     </td>
     <td>
       True

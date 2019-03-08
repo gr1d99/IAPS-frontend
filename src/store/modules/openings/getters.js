@@ -1,4 +1,5 @@
 export default {
   errors: state => (Object.values(state.errors).flat()),
-  response: state => (state.responseData),
+  openingsData: state => (state.openingsData),
+  openingData: state => (state.openingData),
 };

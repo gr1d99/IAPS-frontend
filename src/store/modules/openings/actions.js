@@ -19,4 +19,15 @@ export default {
         dispatch('setAppLoading', DONE_TYPE, { root: true });
       });
   },
+  fetchOpening({ commit, dispatch }, openingId) {
+    dispatch('setAppLoading', WAITING_TYPE, { root: true });
+    Openings.get(openingId)
+      .then((response) => {
+        dispatch('setAppLoading', DONE_TYPE, { root: true });
+        commit('addOpening', response.data);
+      })
+      .catch((error) => {
+        dispatch('setPageNotFound', false, { root: true });
+      });
+  },
 };

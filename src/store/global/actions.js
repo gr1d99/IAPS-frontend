@@ -14,4 +14,7 @@ export default {
   setAppLoading: ({ commit }, status) => {
     commit('setLoading', status);
   },
+  setPageNotFound: ({ commit }, status) => {
+    commit('setPageNotFound', status);
+  },
 };

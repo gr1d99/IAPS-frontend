@@ -1,4 +1,5 @@
 export default {
   errors: {},
-  responseData: {},
+  openingsData: {},
+  openingData: {},
 };

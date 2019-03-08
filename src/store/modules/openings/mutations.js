@@ -6,6 +6,9 @@ export default {
     Object.assign(state, { errors: {} });
   },
   addOpenings(state, responseData) {
-    Object.assign(state, { responseData });
+    Object.assign(state, { openingsData: responseData });
+  },
+  addOpening(state, responseData) {
+    Object.assign(state, { openingData: responseData });
   },
 };
