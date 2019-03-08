@@ -1,7 +1,8 @@
 <template>
-  <div class="container" v-if="this.openings.meta">
+  <div class="container-fluid" v-if="this.openings.meta">
     <div class="row">
-      <div class="col col-lg-8 offset-2">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="openings-tab" data-toggle="tab" href="#openings" role="tab" aria-controls="home" aria-selected="true">Openings</a>
@@ -20,7 +21,6 @@
                 <table class="table">
                   <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Open</th>
                     <th scope="col">Location</th>
@@ -37,6 +37,7 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-2"></div>
     </div>
   </div>
 </template>

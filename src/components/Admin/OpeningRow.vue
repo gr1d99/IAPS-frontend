@@ -1,9 +1,8 @@
 <template>
   <tbody>
   <tr v-for="(opening) in this.openings" :key="opening.id">
-    <th scope="row">{{ opening.id }}</th>
     <td>
-      <router-link :to="{ name: 'ShowOpening', params: { id: opening.id }}">{{ opening.attributes.title }}</router-link>
+      <router-link class="opening-link" :to="{ name: 'ShowOpening', params: { id: opening.id }}">{{ opening.attributes.title }}</router-link>
     </td>
     <td>
       <small class="bagde badge-pill" :class="opening.attributes.open ? 'badge-success': 'badge-danger'">{{ opening.attributes.open ? 'open': 'closed' }}</small>
@@ -17,4 +16,8 @@ export default {
   props: ['openings'],
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.opening-link {
+  text-decoration: none;
+}
+</style>
