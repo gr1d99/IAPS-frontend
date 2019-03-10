@@ -10,6 +10,7 @@
                 <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }} <small class="float-right badge badge-pill" style="font-size: 70%" :class="open ? 'badge-success': 'badge-danger'">{{ open ? 'open': 'closed' }}</small></h4>
                 <hr/>
                 <div class="d-flex flex-column justify-content-start">
+                  <span class="opening-company pt-2 pl-2"><strong class="company-header">Company:</strong> {{this.openingData.data.attributes.company}}</span>
                   <span class="opening-location pt-2 pl-2"><strong class="location-header">Location:</strong> {{this.openingData.data.attributes.location}}</span>
                   <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {{this.openingData.data.attributes['start-date']}}</span>
                   <span class="opening-end-date pb-2 pl-2"><strong class="end-date-header">End Date:</strong> {{this.openingData.data.attributes['end-date']}}</span>
@@ -23,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-column mt-3" v-if="open">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
-                    <a href="#" class="card-link btn-info badge">Edit</a>
+                    <router-link :to="{ name: 'EditOpening', params: { id: this.openingData.data.id }}" class="card-link btn-info badge">Edit</router-link>
                     <a href="#" class="card-link btn-warning badge">Delete</a>
                   </span>
                 </div>
@@ -72,6 +73,9 @@ export default {
 }
 .opening-location {
   background-color: ghostwhite;
+}
+.opening-company {
+  background-color: #f8f5ff;
 }
 .location-header {
   padding-right: 20px;

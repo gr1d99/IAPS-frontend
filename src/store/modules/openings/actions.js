@@ -37,4 +37,21 @@ export default {
   openingNotFound: ({ commit }, status) => {
     commit('openingNotFound', status);
   },
+  editOpening({ dispatch }, data) {
+    dispatch('setAppLoading', WAITING_TYPE, { root: true });
+    Openings.edit(data.openingId, { openings: data.opening })
+      .then(() => {
+        dispatch('setAppLoading', DONE_TYPE, { root: true });
+      })
+      .catch((error) => {
+        dispatch('setAppLoading', DONE_TYPE, { root: true });
+        switch (error.response.status) {
+          case 422:
+            dispatch('addErrors', error.response.data.errors);
+            break;
+          default:
+            break;
+        }
+      });
+  },
 };

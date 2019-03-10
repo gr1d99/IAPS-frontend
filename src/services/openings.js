@@ -6,6 +6,7 @@ const openings = {
   },
   all(page) { return api.get(`/openings?page[number]=${page}`); },
   get(openingId) { return api.get(`/openings/${openingId}`); },
+  edit(openingId, data) { return api.put(`/openings/${openingId}`, data); },
 };
 
 export default openings;

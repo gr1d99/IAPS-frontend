@@ -11,6 +11,8 @@ import CreateOpening from '../views/Admin/Opening/CreateOpening.vue';
 
 import ShowOpening from '../components/Openings/ShowOpening.vue';
 
+import EditOpening from '../views/Admin/Opening/EditOpening.vue';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -46,6 +48,11 @@ const router = new Router({
       path: '/openings/:id',
       name: 'ShowOpening',
       component: ShowOpening,
+    },
+    {
+      path: '/openings/:id/edit',
+      name: 'EditOpening',
+      component: EditOpening,
     },
   ],
 });

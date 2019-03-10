@@ -192,9 +192,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#new-opening-form {
-  background-color: red;
-}
 .form-group {
   padding: 10px 30px 0 30px;
 }
