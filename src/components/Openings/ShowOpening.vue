@@ -22,29 +22,11 @@
                   <strong class="opening-description">Qualifications</strong>
                   <p class="card-text">{{ this.openingData.data.attributes.qualifications }}</p>
                 </div>
-                <div class="d-flex flex-column mt-3" v-if="open">
+                <div class="d-flex flex-column mt-3">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
                     <router-link :to="{ name: 'EditOpening', params: { id: this.openingData.data.id }}" class="card-link btn-info badge">Edit</router-link>
                     <button class="card-link btn-warning badge" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
-                    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModal" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="confirmDeleteModalLabe">Confirm Action</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Do you really want to delete <strong>{{ this.openingData.data.attributes.title }}?</strong>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" @click="deleteOpening" data-dismiss="modal">Yes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <DeleteOpeningModal :title="this.openingData.data.attributes.title"/>
                   </span>
                 </div>
               </div>
@@ -62,9 +44,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { OPENING_DELETED_SUCCESS } from '../../constants/messages';
 import appLoadingMixin from '../../mixins/appLoadingMixin';
 import authenticationMixin from '../../mixins/authenticationMixin';
+import DeleteOpeningModal from '../Modals/DeleteOpeningModal.vue';
 
 export default {
   name: 'ShowOpening',
@@ -77,16 +59,10 @@ export default {
       return this.openingData.data.attributes.open;
     },
   },
-  methods: {
-    deleteOpening() {
-      this.$store.dispatch('openings/deleteOpening', this.$route.params.id)
-        .then(() => {
-          this.$store.dispatch('addNotification', [OPENING_DELETED_SUCCESS]);
-          this.$router.push('/');
-        });
-    },
-  },
   mixins: [appLoadingMixin, authenticationMixin],
+  components: {
+    DeleteOpeningModal,
+  },
 };
 </script>
 
