@@ -25,7 +25,26 @@
                 <div class="d-flex flex-column mt-3" v-if="open">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
                     <router-link :to="{ name: 'EditOpening', params: { id: this.openingData.data.id }}" class="card-link btn-info badge">Edit</router-link>
-                    <a href="#" class="card-link btn-warning badge">Delete</a>
+                    <button class="card-link btn-warning badge" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+                    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteModalLabe">Confirm Action</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Do you really want to delete <strong>{{ this.openingData.data.attributes.title }}?</strong>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" @click="deleteOpening" data-dismiss="modal">Yes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </span>
                 </div>
               </div>
@@ -43,6 +62,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { OPENING_DELETED_SUCCESS } from '../../constants/messages';
 import appLoadingMixin from '../../mixins/appLoadingMixin';
 import authenticationMixin from '../../mixins/authenticationMixin';
 
@@ -55,6 +75,15 @@ export default {
     ...mapGetters('openings', ['openingData', 'openingNotFound']),
     open() {
       return this.openingData.data.attributes.open;
+    },
+  },
+  methods: {
+    deleteOpening() {
+      this.$store.dispatch('openings/deleteOpening', this.$route.params.id)
+        .then(() => {
+          this.$store.dispatch('addNotification', [OPENING_DELETED_SUCCESS]);
+          this.$router.push('/');
+        });
     },
   },
   mixins: [appLoadingMixin, authenticationMixin],

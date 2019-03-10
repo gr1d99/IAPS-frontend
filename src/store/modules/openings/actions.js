@@ -54,4 +54,7 @@ export default {
         }
       });
   },
+  deleteOpening(_, openingId) {
+    return Openings.delete(openingId);
+  },
 };
