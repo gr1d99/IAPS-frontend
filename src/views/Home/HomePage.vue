@@ -4,7 +4,7 @@
       <AdminHomePage />
     </div>
     <div v-else>
-      None Admin
+      <NonAdminHomePage />
     </div>
   </div>
 </template>
@@ -12,11 +12,13 @@
 <script>
 import authenticationMixin from '../../mixins/authenticationMixin';
 import AdminHomePage from '../../components/Admin/HomePage.vue';
+import NonAdminHomePage from '../../components/NonAdmins/HomePage.vue';
 
 export default {
   name: 'HomePage',
   components: {
     AdminHomePage,
+    NonAdminHomePage,
   },
   mixins: [authenticationMixin],
 };

@@ -30,6 +30,9 @@
                   </span>
                 </div>
               </div>
+              <div class="card-footer" v-if="!isAdmin">
+                <a href="#" class="btn btn-primary">Apply now</a>
+              </div>
             </div>
             <div class="card-body" v-else>
               <h4>Oops!! It seems the opening you are looking for does not exist</h4>

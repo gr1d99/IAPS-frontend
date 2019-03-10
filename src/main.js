@@ -6,6 +6,7 @@ import store from './store';
 import './axios';
 import './cookies';
 import './jwt';
+import './vue-truncate-filter';
 
 Vue.config.productionTip = false;
 
