@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git deploy-to-heroku:master --force
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master:master --force
 
 workflows:
   version: 2
@@ -41,5 +41,5 @@ workflows:
       - deploy:
           filters:
             branches:
-              only: deploy-to-heroku
+              only: master
 
