@@ -22,6 +22,8 @@ jobs:
           paths: dist
 
   deploy:
+    docker:
+      - image: buildpack-deps:trusty
     parallelism: 1
     working_directory: ~/iaas-frontend
     steps:
@@ -40,3 +42,4 @@ workflows:
           filters:
             branches:
               only: deploy-to-heroku
+
