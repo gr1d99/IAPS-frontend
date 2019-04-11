@@ -3,6 +3,7 @@ import App from './App.vue';
 
 import router from './router';
 import store from './store';
+import uppy from './uppy';
 import './axios';
 import './cookies';
 import './jwt';
@@ -20,8 +21,10 @@ const configureAxios = () => {
 
 configureAxios();
 
+
 new Vue({
   router,
   store,
+  uppy,
   render: h => h(App),
 }).$mount('#app');

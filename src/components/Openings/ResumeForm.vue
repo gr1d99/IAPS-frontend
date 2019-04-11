@@ -1,0 +1,103 @@
+<template>
+  <div>
+    <h5>Resume</h5>
+    <UppyForm className="application-resume-form"/>
+    <div v-if="fileAdded">{{ file.name }}
+      <button type="button" class="close" aria-label="Close" @click="removeFile">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+import FileInput from '@uppy/file-input';
+import XHRUpload from '@uppy/xhr-upload';
+
+import UppyForm from '@/components/Forms/UppyForm.vue';
+
+import uppyFormMixin from '@/mixins/uppyFormMixin';
+
+export default {
+  components: {
+    UppyForm,
+  },
+  created() {
+    this.$parent.$on('uploadFiles', () => {
+      this.uploadFile();
+    });
+  },
+  mounted() {
+    const allowedFileTypes = process.env.VUE_APP_ALLOWED_FILE_TYPES.split(' ');
+
+    const resumeUppy = new this.$uppy({
+      debug: true,
+      autoProceed: false,
+      restrictions: {
+        maxNumberOfFiles: 1,
+        allowedFileTypes,
+      },
+    });
+    resumeUppy.use(FileInput, {
+      id: 'ResumeFileInput',
+      target: '.application-resume-form',
+      replaceTargetContent: true,
+      pretty: false,
+    });
+    resumeUppy.use(XHRUpload, {
+      id: 'ResumeXHRUpload',
+      endpoint: process.env.VUE_APP_RESUME_UPLOAD_ENDPOINT,
+      formData: true,
+      fieldName: 'file',
+    });
+
+    resumeUppy.on('file-added', (file) => {
+      this.fileAdded = true;
+      this.file = file;
+      this.disableFileInput();
+    });
+
+    resumeUppy.on('upload-success', (file, response) => {
+      const uploadedFileData = JSON.stringify(response.body);
+      this.cacheUploadedFile('resume', uploadedFileData);
+    });
+    this.resumeUppy = resumeUppy;
+    this.setIdForResumeInput();
+  },
+  data() {
+    return {
+      resumeUppy: null,
+      fileAdded: false,
+      file: {},
+    };
+  },
+  methods: {
+    removeFile() {
+      this.resumeUppy.removeFile(this.file.id);
+      this.fileAdded = false;
+      this.enableFileInput();
+
+      this.$store.dispatch('applications/resetResumeData');
+    },
+    setIdForResumeInput() {
+      document.getElementsByClassName('application-resume-form')[0].children[0].getElementsByClassName('uppy-FileInput-input')[0].id = 'id-resume-input';
+    },
+    disableFileInput() {
+      document.getElementById('id-resume-input').disabled = true;
+    },
+    enableFileInput() {
+      document.getElementById('id-resume-input').disabled = false;
+    },
+    uploadFile() {
+      this.resumeUppy.upload();
+    },
+  },
+  mixins: [uppyFormMixin],
+};
+</script>
+
+<style lang="scss" scoped>
+  h5 {
+    font-size: 1em;
+  }
+</style>

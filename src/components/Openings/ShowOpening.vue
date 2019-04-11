@@ -5,33 +5,35 @@
       <div class="col col-lg-6">
         <div class="opening-card">
           <div class="card d-flex justify-content-center">
-            <div v-if="!openingNotFound">
-              <div class="card-body" v-if="openingData.data">
-                <h4 class="card-title pl-2">{{ this.openingData.data.attributes.title }} <small class="float-right badge badge-pill" style="font-size: 70%" :class="open ? 'badge-success': 'badge-danger'">{{ open ? 'open': 'closed' }}</small></h4>
-                <hr/>
-                <div class="d-flex flex-column justify-content-start">
-                  <span class="opening-company pt-2 pl-2"><strong class="company-header">Company:</strong> {{this.openingData.data.attributes.company}}</span>
-                  <span class="opening-location pt-2 pl-2"><strong class="location-header">Location:</strong> {{this.openingData.data.attributes.location}}</span>
-                  <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {{this.openingData.data.attributes['start-date']}}</span>
-                  <span class="opening-end-date pb-2 pl-2"><strong class="end-date-header">End Date:</strong> {{this.openingData.data.attributes['end-date']}}</span>
-                </div>
-                <hr/>
-                <div class="d-flex flex-column pl-2">
-                  <strong class="opening-description">Description</strong>
-                  <p>{{this.openingData.data.attributes.description }}</p>
-                  <strong class="opening-description">Qualifications</strong>
-                  <p class="card-text">{{ this.openingData.data.attributes.qualifications }}</p>
-                </div>
-                <div class="d-flex flex-column mt-3">
+            <div v-if="openingFound">
+              <div v-if="opening.id">
+                <div class="card-body">
+                  <h4 class="card-title pl-2">{{ opening.attributes.title }} <small class="float-right badge badge-pill" style="font-size: 70%" :class="opening.attributes.open ? 'badge-success': 'badge-danger'">{{ opening.attributes.open ? 'open': 'closed' }}</small></h4>
+                  <hr/>
+                  <div class="d-flex flex-column justify-content-start">
+                    <span class="opening-company pt-2 pl-2"><strong class="company-header">Company:</strong> {{opening.attributes.company}}</span>
+                    <span class="opening-location pt-2 pl-2"><strong class="location-header">Location:</strong> {{opening.attributes.location}}</span>
+                    <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {opening.attributes['start-date']}}</span>
+                    <span class="opening-end-date pb-2 pl-2"><strong class="end-date-header">End Date:</strong> {{opening.attributes['end-date']}}</span>
+                  </div>
+                  <hr/>
+                  <div class="d-flex flex-column pl-2">
+                    <strong class="opening-description">Description</strong>
+                    <p>{{opening.attributes.description }}</p>
+                    <strong class="opening-description">Qualifications</strong>
+                    <p class="card-text">{{ opening.attributes.qualifications }}</p>
+                  </div>
+                  <div class="d-flex flex-column mt-3">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
-                    <router-link :to="{ name: 'EditOpening', params: { id: this.openingData.data.id }}" class="card-link btn-info badge">Edit</router-link>
+                    <router-link :to="{ name: 'EditOpening', params: { id: opening.id }}" class="card-link btn-info badge">Edit</router-link>
                     <button class="card-link btn-warning badge" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
-                    <DeleteOpeningModal :title="this.openingData.data.attributes.title"/>
+                    <DeleteOpeningModal :title="opening.attributes.title"/>
                   </span>
+                  </div>
                 </div>
-              </div>
-              <div class="card-footer" v-if="!isAdmin">
-                <a href="#" class="btn btn-primary">Apply now</a>
+                <div class="card-footer" v-if="!isAdmin">
+                  <router-link :to="{ name: 'CreateApplication', params: { id: opening.id }}" class="btn btn-primary">Apply now</router-link>
+                </div>
               </div>
             </div>
             <div class="card-body" v-else>
@@ -46,20 +48,41 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+
+import { DONE_TYPE, WAITING_TYPE } from '@/constants/async_types';
+
 import appLoadingMixin from '../../mixins/appLoadingMixin';
 import authenticationMixin from '../../mixins/authenticationMixin';
 import DeleteOpeningModal from '../Modals/DeleteOpeningModal.vue';
 
+import Opening from '@/services/openings';
+
 export default {
   name: 'ShowOpening',
   mounted() {
-    this.$store.dispatch('openings/fetchOpening', this.$route.params.id);
+    this.fetchOpening();
   },
-  computed: {
-    ...mapGetters('openings', ['openingData', 'openingNotFound']),
-    open() {
-      return this.openingData.data.attributes.open;
+  data() {
+    return {
+      opening: {},
+      openingFound: false,
+    };
+  },
+  methods: {
+    fetchOpening() {
+      this.$store.dispatch('setAppLoading', WAITING_TYPE);
+      Opening.get(this.$route.params.id).then((response) => {
+        this.$store.dispatch('setAppLoading', DONE_TYPE);
+        this.openingFound = true;
+        this.opening = response.data.data;
+      }).catch((error) => {
+        if (error.response.status) {
+          const { status } = error.response;
+          if (status === 404) {
+            this.$store.dispatch('setAppLoading', DONE_TYPE);
+          }
+        }
+      });
     },
   },
   mixins: [appLoadingMixin, authenticationMixin],

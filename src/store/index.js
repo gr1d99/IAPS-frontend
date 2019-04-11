@@ -11,6 +11,7 @@ import mutations from './global/mutations';
 import users from './modules/users';
 import sessions from './modules/sessions';
 import openings from './modules/openings';
+import applications from './modules/applications';
 
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     users,
     sessions,
     openings,
+    applications,
   },
 });

@@ -5,3 +5,5 @@ export const BAD_REQUEST_MESSAGE = 'Oops!! there was an error in the request you
 export const OPENING_CREATED = 'Success!! Opening has been created';
 
 export const OPENING_DELETED_SUCCESS = 'Opening deleted successfully';
+
+export const APPLICATION_CREATED = 'Your application has been created';

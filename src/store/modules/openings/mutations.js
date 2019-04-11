@@ -8,10 +8,4 @@ export default {
   addOpenings(state, responseData) {
     Object.assign(state, { openingsData: responseData });
   },
-  addOpening(state, responseData) {
-    Object.assign(state, { openingData: responseData });
-  },
-  openingNotFound: (state, status) => {
-    Object.assign(state, { openingNotFound: status });
-  },
 };

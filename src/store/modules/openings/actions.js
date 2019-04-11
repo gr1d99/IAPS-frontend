@@ -19,24 +19,6 @@ export default {
         dispatch('setAppLoading', DONE_TYPE, { root: true });
       });
   },
-  fetchOpening({ commit, dispatch }, openingId) {
-    dispatch('setAppLoading', WAITING_TYPE, { root: true });
-    Openings.get(openingId)
-      .then((response) => {
-        dispatch('setAppLoading', DONE_TYPE, { root: true });
-        dispatch('openingNotFound', false);
-        commit('addOpening', response.data);
-      })
-      .catch((error) => {
-        if (error.response.status) {
-          dispatch('setAppLoading', DONE_TYPE, { root: true });
-          dispatch('openingNotFound', true);
-        }
-      });
-  },
-  openingNotFound: ({ commit }, status) => {
-    commit('openingNotFound', status);
-  },
   editOpening({ dispatch }, data) {
     dispatch('setAppLoading', WAITING_TYPE, { root: true });
     Openings.edit(data.openingId, { openings: data.opening })
