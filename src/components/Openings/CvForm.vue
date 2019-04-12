@@ -5,12 +5,9 @@
       <UppyForm className="application-cv-form"/>
     </div>
     <div v-if="fileAdded">
-      <div class="d-flex flex-row">
-        <span>{{ file.name }}</span>
-        <button type="button" class="pl-2 close" aria-label="Close" @click="removeFile" v-if="!fileUploaded">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <RemoveButton :file="file"
+                    :fileUploaded="fileUploaded"
+                    @remove-file-button-clicked="removeFile"/>
     </div>
   </div>
 </template>
@@ -20,6 +17,8 @@ import FileInput from '@uppy/file-input';
 import XHRUpload from '@uppy/xhr-upload';
 
 import UppyForm from '@/components/Forms/UppyForm.vue';
+import RemoveButton from '@/components/Openings/Applications/RemoveButton.vue';
+
 import uppyFormMixin from '@/mixins/uppyFormMixin';
 
 import '@uppy/core/dist/style.min.css';
@@ -28,6 +27,7 @@ import '@uppy/file-input/dist/style.min.css';
 export default {
   components: {
     UppyForm,
+    RemoveButton,
   },
   created() {
     this.$parent.$on('uploadFiles', () => {

@@ -4,10 +4,10 @@
     <div v-if="!fileUploaded">
       <UppyForm className="application-resume-form"/>
     </div>
-    <div v-if="fileAdded">{{ file.name }}
-      <button type="button" class="close" aria-label="Close" @click="removeFile" v-if="!fileUploaded">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div v-if="fileAdded">
+      <RemoveButton :file="file"
+                    :fileUploaded="fileUploaded"
+                    @remove-file-button-clicked="removeFile"/>
     </div>
   </div>
 </template>
@@ -17,12 +17,14 @@ import FileInput from '@uppy/file-input';
 import XHRUpload from '@uppy/xhr-upload';
 
 import UppyForm from '@/components/Forms/UppyForm.vue';
+import RemoveButton from '@/components/Openings/Applications/RemoveButton.vue';
 
 import uppyFormMixin from '@/mixins/uppyFormMixin';
 
 export default {
   components: {
     UppyForm,
+    RemoveButton,
   },
   created() {
     this.$parent.$on('uploadFiles', () => {
