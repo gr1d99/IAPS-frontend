@@ -7,6 +7,7 @@
     <div v-if="fileAdded">
       <RemoveButton :file="file"
                     :fileUploaded="fileUploaded"
+                    buttonId="cv-remove-btn"
                     @remove-file-button-clicked="removeFile"/>
     </div>
   </div>

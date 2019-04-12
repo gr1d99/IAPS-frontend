@@ -28,7 +28,9 @@
           <button class="btn btn-primary btn-sm mt-2" @click="submitApplication">Submit Application</button>
         </div>
         <div v-else>
-          <button class="btn btn-primary btn-sm mt-2" :disabled="!(cvFileAdded && resumeFileAdded)" @click="uploadFiles">Upload Files</button>
+          <button class="btn btn-primary btn-sm mt-2"
+                  :disabled="!(cvFileAdded && resumeFileAdded) || uploadingFiles"
+                  @click="uploadFiles">Upload Files</button>
         </div>
       </div>
     </div>
