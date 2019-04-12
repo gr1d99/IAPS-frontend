@@ -13,16 +13,22 @@
 
       <div>
         <div class="cv p-2 border">
-          <CvForm/>
+          <CvForm @cv-added="cvAdded"
+                  @cv-removed="cvFileRemoved"
+                  @cv-uploaded="cvUploaded"
+                  :fileUploaded="cvFileUploaded"/>
         </div>
         <div class="resume p-2 mt-2 border">
-          <ResumeForm/>
+          <ResumeForm @resume-added="resumeAdded"
+                      @resume-removed="resumeRemoved"
+                      @resume-uploaded="resumeUploaded"
+                      :fileUploaded="resumeFileUploaded"/>
         </div>
         <div v-if="cvData && resumeData">
           <button class="btn btn-primary btn-sm mt-2" @click="submitApplication">Submit Application</button>
         </div>
         <div v-else>
-          <button class="btn btn-primary btn-sm mt-2" @click="uploadFiles">Upload Files</button>
+          <button class="btn btn-primary btn-sm mt-2" :disabled="!(cvFileAdded && resumeFileAdded)" @click="uploadFiles">Upload Files</button>
         </div>
       </div>
     </div>
@@ -61,21 +67,45 @@ export default {
   },
   data() {
     return {
+      cvFileAdded: false,
+      resumeFileAdded: false,
+      cvFileUploaded: false,
+      resumeFileUploaded: false,
       errors: {},
+      uploadingFiles: false,
     };
   },
   computed: {
+    ...mapGetters('applications', ['cvData', 'resumeData']),
     hasErrors() {
       return Object.keys(this.errors).length > 0;
     },
-    ...mapGetters('applications', ['cvData', 'resumeData']),
   },
   components: {
     ResumeForm,
     CvForm,
   },
   methods: {
+    cvAdded() {
+      this.cvFileAdded = true;
+    },
+    resumeAdded() {
+      this.resumeFileAdded = true;
+    },
+    resumeRemoved() {
+      this.resumeFileAdded = false;
+    },
+    cvFileRemoved() {
+      this.cvFileAdded = false;
+    },
+    cvUploaded() {
+      this.cvFileUploaded = true;
+    },
+    resumeUploaded() {
+      this.resumeFileUploaded = true;
+    },
     uploadFiles() {
+      this.uploadingFiles = true;
       this.$emit('uploadFiles');
     },
     submitApplication() {

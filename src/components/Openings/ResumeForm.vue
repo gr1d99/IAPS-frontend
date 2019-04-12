@@ -1,9 +1,11 @@
 <template>
   <div>
     <h5>Resume</h5>
-    <UppyForm className="application-resume-form"/>
+    <div v-if="!fileUploaded">
+      <UppyForm className="application-resume-form"/>
+    </div>
     <div v-if="fileAdded">{{ file.name }}
-      <button type="button" class="close" aria-label="Close" @click="removeFile">
+      <button type="button" class="close" aria-label="Close" @click="removeFile" v-if="!fileUploaded">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -54,16 +56,20 @@ export default {
     resumeUppy.on('file-added', (file) => {
       this.fileAdded = true;
       this.file = file;
+      this.$emit('resume-added');
       this.disableFileInput();
     });
 
     resumeUppy.on('upload-success', (file, response) => {
       const uploadedFileData = JSON.stringify(response.body);
       this.cacheUploadedFile('resume', uploadedFileData);
+
+      this.$emit('resume-uploaded');
     });
     this.resumeUppy = resumeUppy;
     this.setIdForResumeInput();
   },
+  props: ['fileUploaded'],
   data() {
     return {
       resumeUppy: null,
@@ -77,6 +83,7 @@ export default {
       this.fileAdded = false;
       this.enableFileInput();
 
+      this.$emit('resume-removed');
       this.$store.dispatch('applications/resetResumeData');
     },
     setIdForResumeInput() {

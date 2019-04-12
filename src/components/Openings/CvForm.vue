@@ -1,13 +1,13 @@
 <template>
   <div>
     <h5>Cover Letter</h5>
-    <div>
+    <div v-if="!fileUploaded">
       <UppyForm className="application-cv-form"/>
     </div>
     <div v-if="fileAdded">
       <div class="d-flex flex-row">
         <span>{{ file.name }}</span>
-        <button type="button" class="pl-2 close" aria-label="Close" @click="removeFile">
+        <button type="button" class="pl-2 close" aria-label="Close" @click="removeFile" v-if="!fileUploaded">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -55,16 +55,22 @@ export default {
     cvUppy.on('file-added', (file) => {
       this.fileAdded = true;
       this.file = file;
+      this.$emit('cv-added');
       this.disableFileInput();
     });
 
     cvUppy.on('upload-success', (file, response) => {
       const uploadedFileData = JSON.stringify(response.body);
       this.cacheUploadedFile('cv', uploadedFileData);
+
+      this.$emit('cv-uploaded');
     });
     this.cvUppy = cvUppy;
     this.setIdForCvInput();
   },
+  props: [
+    'fileUploaded',
+  ],
   data() {
     return {
       cvUppy: null,
@@ -78,6 +84,7 @@ export default {
       this.fileAdded = false;
       this.enableFileInput();
 
+      this.$emit('cv-removed');
       this.$store.dispatch('applications/resetCvData');
     },
     setIdForCvInput() {
