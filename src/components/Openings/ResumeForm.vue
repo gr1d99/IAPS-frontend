@@ -7,6 +7,7 @@
     <div v-if="fileAdded">
       <RemoveButton :file="file"
                     :fileUploaded="fileUploaded"
+                    :uploadInProgress="uploadInProgress"
                     @remove-file-button-clicked="removeFile"/>
     </div>
   </div>
@@ -71,7 +72,10 @@ export default {
     this.resumeUppy = resumeUppy;
     this.setIdForResumeInput();
   },
-  props: ['fileUploaded'],
+  props: [
+    'fileUploaded',
+    'uploadInProgress',
+  ],
   data() {
     return {
       resumeUppy: null,

@@ -16,20 +16,22 @@
           <CvForm @cv-added="cvAdded"
                   @cv-removed="cvFileRemoved"
                   @cv-uploaded="cvUploaded"
-                  :fileUploaded="cvFileUploaded"/>
+                  :fileUploaded="cvFileUploaded"
+                  :uploadInProgress="uploadInProgress"/>
         </div>
         <div class="resume p-2 mt-2 border">
           <ResumeForm @resume-added="resumeAdded"
                       @resume-removed="resumeRemoved"
                       @resume-uploaded="resumeUploaded"
-                      :fileUploaded="resumeFileUploaded"/>
+                      :fileUploaded="resumeFileUploaded"
+                      :uploadInProgress="uploadInProgress"/>
         </div>
         <div v-if="cvData && resumeData">
           <button class="btn btn-primary btn-sm mt-2" @click="submitApplication">Submit Application</button>
         </div>
         <div v-else>
           <button class="btn btn-primary btn-sm mt-2"
-                  :disabled="!(cvFileAdded && resumeFileAdded) || uploadingFiles"
+                  :disabled="!(cvFileAdded && resumeFileAdded) || uploadInProgress"
                   @click="uploadFiles">Upload Files</button>
         </div>
       </div>
@@ -79,6 +81,12 @@ export default {
   },
   computed: {
     ...mapGetters('applications', ['cvData', 'resumeData']),
+    uploadInProgress() {
+      if (!!this.cvData && !!this.resumeData) {
+        this.uploadingFiles = false;
+      }
+      return this.uploadingFiles;
+    },
     hasErrors() {
       return Object.keys(this.errors).length > 0;
     },

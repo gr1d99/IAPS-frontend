@@ -8,6 +8,7 @@
       <RemoveButton :file="file"
                     :fileUploaded="fileUploaded"
                     buttonId="cv-remove-btn"
+                    :uploadInProgress="uploadInProgress"
                     @remove-file-button-clicked="removeFile"/>
     </div>
   </div>
@@ -71,6 +72,7 @@ export default {
   },
   props: [
     'fileUploaded',
+    'uploadInProgress',
   ],
   data() {
     return {
