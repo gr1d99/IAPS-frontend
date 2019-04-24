@@ -1,52 +1,26 @@
 <template>
   <div id="iaas">
-    <div class="header">
-      <NavigationBar :isLoggedIn="this.isLoggedIn"
-                     :isAdmin="this.isAdmin"/>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <AlertBox v-show="renderAlerts"
-                    :errors="errors"
-                    :notifications="notifications"/>
-        </div>
-      </div>
-      <AppLoading v-if="appLoading"/>
-      <router-view v-show="!appLoading"/>
-    </div>
+    <NavigationBar/>
+    <LandingPageHeader/>
+    <PageContent/>
+    <PageFooter/>
   </div>
 </template>
 
 <script>
-import NavigationBar from './components/Navigation/NavigationBar'; // eslint-disable-line
-import AlertBox from './components/Alert/AlertBox.vue';
-import AppLoading from './components/Loading/AppLoading.vue';
-import authenticationMixin from './mixins/authenticationMixin';
-import appLoadingMixin from './mixins/appLoadingMixin';
+import NavigationBar from '@/components/Navigation/NavigationBar.vue';
+import LandingPageHeader from '@/components/LandingPageHeader.vue';
+import PageFooter from '@/components/Shared/PageFooter.vue';
+import PageContent from '@/components/PageContent.vue';
 
 export default {
   name: 'app',
   components: {
+    PageContent,
     NavigationBar,
-    AlertBox,
-    AppLoading,
+    LandingPageHeader,
+    PageFooter,
   },
-  computed: {
-    errors() {
-      return this.$store.getters.fetchErrors;
-    },
-    notifications() {
-      return this.$store.getters.fetchNotifications;
-    },
-    renderAlerts() {
-      return this.errors.length > 0 || this.notifications.length > 0;
-    },
-  },
-  mixins: [
-    authenticationMixin,
-    appLoadingMixin,
-  ],
 };
 </script>
 
@@ -54,4 +28,13 @@ export default {
 @import '../node_modules/bootswatch/dist/yeti/variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootswatch/dist/yeti/bootswatch';
+body {
+  padding-top: 56px;
+}
+</style>
+
+<style scoped lang="scss">
+nav {
+  margin-bottom: 0;
+}
 </style>
