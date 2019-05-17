@@ -1,13 +1,12 @@
 <template>
 <div class="container">
-  <!-- Marketing Icons Section -->
-  <h2 class="my-4 text-center">Top openings</h2>
-  <TopOpenings/>
+  <h2 class="my-4 text-center">Latest openings</h2>
+  <LatestOpenings/>
 
-  <!-- Portfolio Section -->
-  <h2 class="text-center">Portfolio Heading</h2>
+  <!--&lt;!&ndash; Portfolio Section &ndash;&gt;-->
+  <!--<h2 class="text-center">Portfolio Heading</h2>-->
 
-  <IaasPortfolio/>
+  <!--<IaasPortfolio/>-->
 
   <!-- Features Section -->
   <IaasFeatures/>
@@ -27,7 +26,7 @@
 </template>
 
 <script>
-import TopOpenings from '@/components/Openings/TopOpenings.vue';
+import LatestOpenings from '@/components/Openings/LatestOpenings.vue';
 import IaasPortfolio from '@/components/IaasPortfolio.vue';
 import IaasFeatures from '@/components/IaasFeatures.vue';
 
@@ -36,7 +35,7 @@ export default {
   components: {
     IaasFeatures,
     IaasPortfolio,
-    TopOpenings,
+    LatestOpenings,
   },
 };
 </script>

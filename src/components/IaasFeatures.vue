@@ -1,5 +1,5 @@
 <template>
-<div class="row">
+<div class="row border-1">
   <div class="col-lg-6">
     <h2>Iaas Business Features</h2>
     <p>The Modern Business template by Start Bootstrap includes:</p>
