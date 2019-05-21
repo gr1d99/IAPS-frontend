@@ -1,11 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HomePage from '../views/Home/HomePage.vue';
-
 import CreateUser from '../views/Users/Create/CreateUser.vue';
-
-import CreateSession from '../views/Sessions/Create/CreateSession.vue';
 
 import CreateOpening from '../views/Admin/Opening/CreateOpening.vue';
 
@@ -14,6 +10,10 @@ import ShowOpening from '../components/Openings/ShowOpening.vue';
 import CreateApplication from '../components/Openings/CreateApplication.vue';
 
 import EditOpening from '../views/Admin/Opening/EditOpening.vue';
+
+const CreateSession = () => import('../views/Sessions/Create/CreateSession.vue');
+const HomePage = () => import('../views/Home/HomePage.vue');
+
 
 Vue.use(Router);
 
@@ -33,7 +33,7 @@ const router = new Router({
     },
     {
       path: '/sign_in',
-      name: 'CreateSession',
+      name: 'create-session',
       component: CreateSession,
       meta: { requiresAuth: false },
     },

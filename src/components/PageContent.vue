@@ -2,13 +2,6 @@
 <div class="container">
   <h2 class="my-4 text-center">Latest openings</h2>
   <LatestOpenings/>
-
-  <!--&lt;!&ndash; Portfolio Section &ndash;&gt;-->
-  <!--<h2 class="text-center">Portfolio Heading</h2>-->
-
-  <!--<IaasPortfolio/>-->
-
-  <!-- Features Section -->
   <IaasFeatures/>
 
   <hr>
@@ -27,14 +20,12 @@
 
 <script>
 import LatestOpenings from '@/components/Openings/LatestOpenings.vue';
-import IaasPortfolio from '@/components/IaasPortfolio.vue';
 import IaasFeatures from '@/components/IaasFeatures.vue';
 
 export default {
   name: 'PageContent',
   components: {
     IaasFeatures,
-    IaasPortfolio,
     LatestOpenings,
   },
 };
