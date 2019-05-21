@@ -9,7 +9,6 @@ import mutations from './global/mutations';
 
 // modules
 import users from './modules/users';
-import sessions from './modules/sessions';
 import openings from './modules/openings';
 import applications from './modules/applications';
 
@@ -22,7 +21,6 @@ export default new Vuex.Store({
   actions,
   modules: {
     users,
-    sessions,
     openings,
     applications,
   },

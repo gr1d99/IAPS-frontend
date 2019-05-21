@@ -1,10 +1,11 @@
 <template>
-  <div class="col-md-4 offset-md-4">
+  <div class="col-md-4 offset-md-4 sign-in">
     <div class="card signin-form-card">
       <div class="card-body">
         <div class="card-text">
           <h3 class="text-center text-uppercase">Sign in</h3>
         </div>
+
         <form class="signin-form" v-on:submit.prevent>
 
           <div class="alert alert-danger signin-error-box"
@@ -12,7 +13,7 @@
                v-show="hasSessionErrors">
             <ul class="errors">
               <li class="error-item"
-                  v-for="(error, index) in sessionErrors"
+                  v-for="(error, index) in errors"
                   :key="index">{{error}}</li>
             </ul>
           </div>
@@ -56,14 +57,12 @@ export default {
     return {
       email: '',
       password: '',
+      errors: [],
     };
   },
   computed: {
-    sessionErrors() {
-      return this.$store.getters['sessions/sessionErrors'];
-    },
     hasSessionErrors() {
-      return this.sessionErrors.length > 0;
+      return this.errors.length > 0;
     },
   },
   methods: {
@@ -74,9 +73,6 @@ export default {
           password: this.password,
         },
       };
-      this.$root.$emit('reset-all-messages');
-
-      this.$store.dispatch('sessions/resetErrors');
 
       this.$store.dispatch('setAppLoading', WAITING_TYPE);
 
@@ -96,10 +92,10 @@ export default {
 
           switch (error.response.status) {
             case 400:
-              this.$store.dispatch('addErrors', [BAD_REQUEST_MESSAGE]);
+              this.errors = [BAD_REQUEST_MESSAGE];
               break;
             case 401:
-              this.$store.dispatch('sessions/addErrors', error.response.data.errors);
+              this.errors = error.response.data.errors;
               break;
             default:
               break;
