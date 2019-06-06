@@ -14,7 +14,7 @@
 import OpeningCard from '@/components/Openings/OpeningCard.vue';
 
 export default {
-  name: 'LatestOpenings.vue',
+  name: 'LatestOpenings',
   components: {
     OpeningCard,
   },

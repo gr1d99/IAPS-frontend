@@ -8,4 +8,5 @@ const options = {
 
 Vue.use(VueJWT, options);
 
-window.$jwt = VueJWT;
+
+export default Vue;

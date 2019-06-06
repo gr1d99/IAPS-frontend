@@ -5,10 +5,6 @@ import { BAD_REQUEST_MESSAGE, REGISTRATION_SUCCESS } from '../../../../constants
 const mixin = {
   methods: {
     createUser() {
-      this.$root.$emit('reset-app-wide-errors-and-messages');
-
-      this.$store.dispatch('users/resetErrors');
-
       const data = {
         user: {
           email: this.email,
@@ -34,13 +30,15 @@ const mixin = {
         this.$router.push('/');
       }).catch((error) => {
         this.$store.commit('setLoading', DONE_TYPE);
+        const serverErrors = error.response.data.errors;
+        const errorsMapper = (acc, curr) => (acc.concat(serverErrors[curr]));
 
         switch (error.response.status) {
           case 400:
-            this.$store.commit('addErrors', [BAD_REQUEST_MESSAGE]);
+            this.errors = [BAD_REQUEST_MESSAGE];
             break;
           case 422:
-            this.$store.commit('users/addErrors', error.response.data.errors);
+            this.errors = Object.keys(serverErrors).reduce(errorsMapper, []);
             break;
           default:
             break;

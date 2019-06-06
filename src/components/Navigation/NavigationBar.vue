@@ -7,8 +7,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isLoggedIn">
             <router-link class="nav-link" :to="{ name: 'create-session' }">Login</router-link>
+          </li>
+          <li class="nav-item" v-if="!isLoggedIn">
+            <router-link class="nav-link" :to="{ name: 'create-user' }">Sign Up</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn">
+            <span class="nav-link" @click="logoutInitiated">Logout</span>
           </li>
           <!--<li class="nav-item">-->
             <!--<a class="nav-link" href="services.html">Services</a>-->
@@ -59,6 +65,12 @@
 <script>
 export default {
   name: 'NavigationBar',
+  props: ['isLoggedIn'],
+  methods: {
+    logoutInitiated() {
+      this.$emit('logout-user');
+    },
+  },
 };
 </script>
 
