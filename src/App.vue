@@ -13,12 +13,14 @@ export default {
   name: 'app',
   created() {
     this.axios.interceptors.response.use(
-      response => (response),
+      (response) => {
+        return response;
+      },
       (error) => {
         if (error.response.status === 401) {
           this.logoutUser();
         }
-        return error;
+        return Promise.reject(error);
       },
     );
   },
