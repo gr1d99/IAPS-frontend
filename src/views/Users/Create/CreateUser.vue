@@ -12,7 +12,7 @@
                v-show="hasValidationErrors">
             <ul class="errors">
               <li class="error-item"
-                  v-for="(error, index) in validationErrors"
+                  v-for="(error, index) in errors"
                   :key="index">{{error}}</li>
             </ul>
           </div>
@@ -54,6 +54,7 @@ export default {
     return {
       email: '',
       password: '',
+      errors: [],
     };
   },
   computed: {
@@ -61,7 +62,7 @@ export default {
       return Object.values(this.$store.getters['users/userErrors']).flat();
     },
     hasValidationErrors() {
-      return this.validationErrors.length > 0;
+      return this.errors.length > 0;
     },
   },
   methods: {

@@ -85,6 +85,8 @@ export default {
 
           this.$root.$emit('user-logged-in');
 
+          this.$store.commit('authentication/authSuccess', accessToken);
+
           this.$router.push('/');
         })
         .catch((error) => {
