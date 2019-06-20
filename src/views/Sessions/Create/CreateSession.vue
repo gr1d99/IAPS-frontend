@@ -68,7 +68,7 @@ export default {
   methods: {
     submitData() {
       const data = {
-        sessions: {
+        session: {
           email: this.email,
           password: this.password,
         },

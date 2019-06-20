@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <h2 class="my-4 text-center">Latest openings</h2>
-  <LatestOpenings/>
+  <LatestOpenings :openings="openingsData.slice(0, 3)"/>
   <IaasFeatures/>
 
   <hr>
@@ -24,6 +24,16 @@ import IaasFeatures from '@/components/IaasFeatures.vue';
 
 export default {
   name: 'PageContent',
+  props: {
+    appLoading: {
+      type: Boolean,
+      required: true,
+    },
+    openingsData: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     IaasFeatures,
     LatestOpenings,

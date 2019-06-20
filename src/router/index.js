@@ -3,16 +3,14 @@ import Router from 'vue-router';
 
 import CreateOpening from '../views/Admin/Opening/CreateOpening.vue';
 
-import ShowOpening from '../components/Openings/ShowOpening.vue';
-
 import CreateApplication from '../components/Openings/CreateApplication.vue';
 
 import EditOpening from '../views/Admin/Opening/EditOpening.vue';
 
-const CreateSession = () => import('../views/Sessions/Create/CreateSession.vue');
-const CreateUser = () => import('../views/Users/Create/CreateUser.vue');
-const HomePage = () => import('../views/Home/HomePage.vue');
-
+const CreateSession = (/* webpackChunkName: "new-session" */) => import('../views/Sessions/Create/CreateSession.vue');
+const CreateUser = (/* webpackChunkName: "user-registration" */) => import('../views/Users/Create/CreateUser.vue');
+const HomePage = (/* webpackChunkName: "home-page" */) => import('../views/Home/HomePage.vue');
+const ShowOpening = (/* webpackChunkName: "opening-detail" */) => import('../components/Openings/ShowOpening.vue');
 
 Vue.use(Router);
 
@@ -47,8 +45,11 @@ const router = new Router({
     },
     {
       path: '/openings/:id',
-      name: 'ShowOpening',
+      name: 'show-opening',
       component: ShowOpening,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/openings/:id/edit',

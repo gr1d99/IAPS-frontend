@@ -1,11 +1,11 @@
 <template>
   <div class="card h-100">
-    <h4 class="card-header"><router-link :to="openingDetailUrl">{{ title }}</router-link></h4>
+    <h5 class="card-header"><router-link :to="{ name: 'show-opening', params: { id: openingId } }">{{ title }}</router-link></h5>
     <div class="card-body">
       <p class="card-text">{{ description }}</p>
     </div>
     <div class="card-footer">
-      <router-link :to="openingDetailUrl" class="btn btn-primary">Learn More</router-link>
+      <router-link :to="{ name: 'show-opening', params: { id: openingId } }" class="btn btn-primary">Learn More</router-link>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   props: [
     'title',
     'description',
-    'openingDetailUrl',
+    'openingId',
   ],
 };
 </script>
@@ -24,5 +24,8 @@ export default {
 <style scoped>
   .card-header a {
     text-decoration: none;
+  }
+  h5.card-header {
+    font-size: 15px;
   }
 </style>
