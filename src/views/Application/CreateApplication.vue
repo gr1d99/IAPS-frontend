@@ -1,41 +1,41 @@
 <template>
-    <div class="col-md-6 offset-md-3 create-application">
-      <span>Step {{ cvData && resumeData ? '2' : '1' }} of 2</span>
-      <div class="alert alert-danger upload-error-box"
-           role="alert"
-           v-show="hasErrors">
-        <ul class="errors">
-          <li class="error-item"
-              v-for="(error, index) in Object.values(errors).flat()"
-              :key="index">{{error}}</li>
-        </ul>
-      </div>
+  <div class="col-md-6 offset-md-3 create-application">
+    <span>Step {{ cvData && resumeData ? '2' : '1' }} of 2</span>
+    <div class="alert alert-danger upload-error-box"
+         role="alert"
+         v-show="hasErrors">
+      <ul class="errors">
+        <li class="error-item"
+            v-for="(error, index) in Object.values(errors).flat()"
+            :key="index">{{error}}</li>
+      </ul>
+    </div>
 
-      <div>
-        <div class="cv p-2 border">
-          <CvForm @cv-added="cvAdded"
-                  @cv-removed="cvFileRemoved"
-                  @cv-uploaded="cvUploaded"
-                  :fileUploaded="cvFileUploaded"
-                  :uploadInProgress="uploadInProgress"/>
-        </div>
-        <div class="resume p-2 mt-2 border">
-          <ResumeForm @resume-added="resumeAdded"
-                      @resume-removed="resumeRemoved"
-                      @resume-uploaded="resumeUploaded"
-                      :fileUploaded="resumeFileUploaded"
-                      :uploadInProgress="uploadInProgress"/>
-        </div>
-        <div v-if="cvData && resumeData">
-          <button class="btn btn-primary btn-sm mt-2" @click="submitApplication">Submit Application</button>
-        </div>
-        <div v-else>
-          <button class="btn btn-primary btn-sm mt-2"
-                  :disabled="!(cvFileAdded && resumeFileAdded) || uploadInProgress"
-                  @click="uploadFiles">Upload Files</button>
-        </div>
+    <div>
+      <div class="cv p-2 border">
+        <CvForm @cv-added="cvAdded"
+                @cv-removed="cvFileRemoved"
+                @cv-uploaded="cvUploaded"
+                :fileUploaded="cvFileUploaded"
+                :uploadInProgress="uploadInProgress"/>
+      </div>
+      <div class="resume p-2 mt-2 border">
+        <ResumeForm @resume-added="resumeAdded"
+                    @resume-removed="resumeRemoved"
+                    @resume-uploaded="resumeUploaded"
+                    :fileUploaded="resumeFileUploaded"
+                    :uploadInProgress="uploadInProgress"/>
+      </div>
+      <div v-if="cvData && resumeData">
+        <button class="btn btn-primary btn-sm mt-2" @click="submitApplication">Submit Application</button>
+      </div>
+      <div v-else>
+        <button class="btn btn-primary btn-sm mt-2"
+                :disabled="!(cvFileAdded && resumeFileAdded) || uploadInProgress"
+                @click="uploadFiles">Upload Files</button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -143,6 +143,8 @@ export default {
             this.errors = error.response.data.errors;
             this.$store.dispatch('applications/resetCvData');
             this.$store.dispatch('applications/resetResumeData');
+            this.resumeFileAdded = false;
+            this.cvFileAdded = false;
           }
         }
       });

@@ -5,7 +5,7 @@
       <UppyForm className="application-cv-form"/>
     </div>
     <div v-if="fileAdded">
-      <RemoveButton :file="file"
+      <RemoveFileButton :file="file"
                     :fileUploaded="fileUploaded"
                     buttonId="cv-remove-btn"
                     :uploadInProgress="uploadInProgress"
@@ -19,7 +19,7 @@ import FileInput from '@uppy/file-input';
 import XHRUpload from '@uppy/xhr-upload';
 
 import UppyForm from '@/components/Forms/UppyForm.vue';
-import RemoveButton from '@/components/Openings/Applications/RemoveButton.vue';
+import RemoveFileButton from '@/components/Application/Buttons/RemoveFileButton.vue';
 
 import uppyFormMixin from '@/mixins/uppyFormMixin';
 
@@ -29,7 +29,7 @@ import '@uppy/file-input/dist/style.min.css';
 export default {
   components: {
     UppyForm,
-    RemoveButton,
+    RemoveFileButton,
   },
   created() {
     this.$parent.$on('uploadFiles', () => {

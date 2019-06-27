@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="card-footer" v-if="!isAdmin && opening.attributes.open">
-                  <router-link :to="{ name: 'CreateApplication', params: { id: opening.id }}" class="btn btn-primary">Apply now</router-link>
+                  <router-link :to="{ name: 'create-application', params: { id: opening.id }}" class="btn btn-primary">Apply now</router-link>
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@ import { DONE_TYPE, WAITING_TYPE } from '@/constants/async_types';
 
 import appLoadingMixin from '../../mixins/appLoadingMixin';
 import authenticationMixin from '../../mixins/authenticationMixin';
-import DeleteOpeningModal from '../Modals/DeleteOpeningModal.vue';
+import DeleteOpeningModal from '../../components/Modals/DeleteOpeningModal.vue';
 
 import Opening from '@/services/openings';
 
