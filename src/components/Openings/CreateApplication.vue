@@ -141,6 +141,8 @@ export default {
           if (status === 422) {
             this.$store.dispatch('setAppLoading', DONE_TYPE);
             this.errors = error.response.data.errors;
+            this.$store.dispatch('applications/resetCvData');
+            this.$store.dispatch('applications/resetResumeData');
           }
         }
       });
