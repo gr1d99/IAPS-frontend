@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6 offset-md-3 mt-5">
+    <div class="col-md-6 offset-md-3 create-application">
       <span>Step {{ cvData && resumeData ? '2' : '1' }} of 2</span>
       <div class="alert alert-danger upload-error-box"
            role="alert"
@@ -133,7 +133,7 @@ export default {
         this.$store.dispatch('addNotification', [APPLICATION_CREATED]);
         this.$store.dispatch('applications/resetCvData');
         this.$store.dispatch('applications/resetResumeData');
-        this.$router.push({ name: 'ShowOpening', params: { id: openingId } });
+        this.$router.push({ name: 'show-opening', params: { id: openingId } });
       }).catch((error) => {
         if (error.response.status) {
           const { status } = error.response;
@@ -159,5 +159,8 @@ export default {
   .error-item {
     list-style: none;
     font-size: 12px;
+  }
+  div.create-application {
+    margin-top: 5rem !important;
   }
 </style>

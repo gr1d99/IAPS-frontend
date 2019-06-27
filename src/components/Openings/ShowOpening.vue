@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="">
     <div class="row">
       <div class="col-lg-3"></div>
       <div class="col col-lg-6">
@@ -13,7 +13,7 @@
                   <div class="d-flex flex-column justify-content-start">
                     <span class="opening-company pt-2 pl-2"><strong class="company-header">Company:</strong> {{opening.attributes.company}}</span>
                     <span class="opening-location pt-2 pl-2"><strong class="location-header">Location:</strong> {{opening.attributes.location}}</span>
-                    <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {opening.attributes['start-date']}}</span>
+                    <span class="opening-start-date pt-2 pl-2"><strong class="start-date-header">Start Date:</strong> {{opening.attributes['start-date']}}</span>
                     <span class="opening-end-date pb-2 pl-2"><strong class="end-date-header">End Date:</strong> {{opening.attributes['end-date']}}</span>
                   </div>
                   <hr/>
@@ -31,7 +31,7 @@
                   </span>
                   </div>
                 </div>
-                <div class="card-footer" v-if="!isAdmin">
+                <div class="card-footer" v-if="!isAdmin && opening.attributes.open">
                   <router-link :to="{ name: 'CreateApplication', params: { id: opening.id }}" class="btn btn-primary">Apply now</router-link>
                 </div>
               </div>
@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 .opening-card {
-  padding-top: 50px;
+  padding-top: 100px;
 }
 .opening-start-date {
   background-color: whitesmoke;
