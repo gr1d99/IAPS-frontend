@@ -1,6 +1,10 @@
 <template>
   <div id="iaas">
-    <NavigationBar :isLoggedIn="isLoggedIn" v-on:logout-user="logoutUser"/>
+    <NavigationBar :is-logged-in="isLoggedIn"
+                   :is-admin="isAdmin"
+                   :current-user="currentUser"
+                   :current-user-name="currentUserName"
+                   v-on:logout-user="logoutUser"/>
     <router-view :app-loading="appLoading"></router-view>
   </div>
 </template>
@@ -27,6 +31,9 @@ export default {
   computed: {
     ...mapGetters({
       isLoggedIn: 'authentication/isLoggedIn',
+      isAdmin: 'authentication/isAdmin',
+      currentUser: 'authentication/currentUser',
+      currentUserName: 'authentication/currentUserName',
     }),
     ...mapGetters({
       appLoading: 'appLoading',

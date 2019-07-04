@@ -3,7 +3,7 @@ import { DONE_TYPE, WAITING_TYPE } from '../../../constants/async_types';
 
 export default {
   createOpening(_, payload) {
-    return Openings.create({ openings: payload });
+    return Openings.create(payload);
   },
   clearErrors({ commit }) {
     commit('clearErrors');

@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import CreateOpening from '../views/Admin/Opening/CreateOpening.vue';
-
 import EditOpening from '../views/Admin/Opening/EditOpening.vue';
 
 const CreateSession = (/* webpackChunkName: "new-session" */) => import('../views/Sessions/Create/CreateSession.vue');
@@ -10,6 +8,8 @@ const CreateUser = (/* webpackChunkName: "user-registration" */) => import('../v
 const HomePage = (/* webpackChunkName: "home-page" */) => import('../views/Home/HomePage.vue');
 const ShowOpening = (/* webpackChunkName: "opening-detail" */) => import('../views/Opening/ShowOpening.vue');
 const CreateApplication = (/* webpackChunkName: "create-application" */) => import('../views/Application/CreateApplication.vue');
+const CreateOpening = (/* webpackChunkName: "create-opening" */) => import('../views/Admin/Opening/AdminOpeningCreate.vue');
+
 
 Vue.use(Router);
 
@@ -35,7 +35,7 @@ const router = new Router({
     },
     {
       path: '/openings/create',
-      name: 'CreateOpening',
+      name: 'create-opening',
       component: CreateOpening,
       meta: {
         requiresAuth: true,
