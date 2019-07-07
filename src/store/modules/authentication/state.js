@@ -1,5 +1,5 @@
-import Vue from '../../../jwt';
+import Cookies from 'js-cookie';
 
 export default {
-  token: Vue.$jwt.getToken(),
+  token: Cookies.get('jwt-token'),
 };

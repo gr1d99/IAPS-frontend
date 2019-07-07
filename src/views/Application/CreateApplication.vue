@@ -46,6 +46,7 @@ import { APPLICATION_CREATED } from '@/constants/messages';
 
 import api from '@/api';
 import Applications from '@/services/applications';
+import axiosConfig from '@/mixins/axiosConfig';
 
 import ResumeForm from '@/components/Openings/ResumeForm.vue';
 import CvForm from '@/components/Openings/CvForm.vue';
@@ -150,6 +151,9 @@ export default {
       });
     },
   },
+  mixins: [
+    axiosConfig,
+  ],
 };
 </script>
 

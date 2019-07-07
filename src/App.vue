@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import { mapGetters } from 'vuex';
 import NavigationBar from '@/components/Navigation/NavigationBar.vue';
 
@@ -44,7 +45,7 @@ export default {
   },
   methods: {
     logoutUser() {
-      this.$cookies.remove('jwt-token');
+      Cookies.remove('jwt-token');
       this.$store.commit('authentication/logoutSuccess');
     },
   },

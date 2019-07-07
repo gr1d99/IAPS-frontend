@@ -22,12 +22,14 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import AdminOpeningCreateForm from '@/components/Admin/Opening/AdminOpeningCreateForm.vue';
-
 import {
   BAD_REQUEST_MESSAGE,
   OPENING_CREATED,
 } from '../../../constants/messages';
+
+import AdminOpeningCreateForm from '@/components/Admin/Opening/AdminOpeningCreateForm.vue';
+
+import axiosConfig from '@/mixins/axiosConfig';
 
 export default {
   name: 'CreateOpening',
@@ -138,6 +140,9 @@ export default {
       this.opening.end_date = '';
     },
   },
+  mixins: [
+    axiosConfig,
+  ],
 };
 </script>
 

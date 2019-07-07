@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import { BAD_REQUEST_MESSAGE } from '../../../constants/messages';
 import { DONE_TYPE, WAITING_TYPE } from '../../../constants/async_types';
 import Sessions from '../../../services/sessions';
@@ -81,7 +82,7 @@ export default {
           this.$store.commit('setLoading', DONE_TYPE);
           const accessToken = response.headers['x-access-token'];
 
-          this.$cookies.set('jwt-token', accessToken);
+          Cookies.set('jwt-token', accessToken);
 
           this.$root.$emit('user-logged-in');
 

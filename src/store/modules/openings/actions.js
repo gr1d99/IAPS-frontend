@@ -1,4 +1,4 @@
-import Openings from '../../../services/openings';
+import Openings from '@/services/openings';
 import { DONE_TYPE, WAITING_TYPE } from '../../../constants/async_types';
 
 export default {

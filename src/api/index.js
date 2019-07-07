@@ -1,11 +1,13 @@
 import axios from 'axios';
-import VueCookies from 'vue-cookies';
+import Cookies from 'js-cookie';
 
 const api = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
+  headers: {
+    common: {
+      'X-Access-Token': Cookies.get('jwt-token'),
+    },
+  },
 });
-
-
-api.defaults.headers.common['X-Access-Token'] = VueCookies.get('jwt-token');
 
 export default api;
