@@ -48,6 +48,19 @@ export default {
     logoutUser() {
       Cookies.remove('jwt-token');
       this.$store.commit('authentication/logoutSuccess');
+
+      this.redirectAfterLogout();
+    },
+    redirectAfterLogout() {
+      const currentPath = this.$route.path;
+
+      const whiteListedPaths = ['/sign_in', 'sign_up'];
+
+      if (currentPath !== '/' && whiteListedPaths.indexOf(currentPath) < 0) {
+        this.$router.push({
+          name: 'home-page',
+        });
+      }
     },
   },
   mixins: [
