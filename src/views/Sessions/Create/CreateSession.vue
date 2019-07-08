@@ -88,7 +88,9 @@ export default {
 
           this.$store.commit('authentication/authSuccess', accessToken);
 
-          this.$router.push('/');
+          this.$router.push({
+            name: 'home-page',
+          });
         })
         .catch((error) => {
           this.$store.commit('setLoading', DONE_TYPE);

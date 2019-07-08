@@ -12,7 +12,9 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import authenticationMixin from '../../mixins/authenticationMixin';
+import authenticationMixin from '@/mixins/authenticationMixin';
+import axiosConfig from '@/mixins/axiosConfig';
+
 import LandingPageHeader from '@/components/LandingPageHeader.vue';
 import PageContent from '@/components/PageContent.vue';
 
@@ -39,7 +41,10 @@ export default {
       return !!(this.openings && this.openings.data);
     },
   },
-  mixins: [authenticationMixin],
+  mixins: [
+    authenticationMixin,
+    axiosConfig
+  ],
 };
 </script>
 

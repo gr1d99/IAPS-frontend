@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './fontawesome';
 
 import App from './App.vue';
 

@@ -13,6 +13,7 @@
 import Cookies from 'js-cookie';
 import { mapGetters } from 'vuex';
 import NavigationBar from '@/components/Navigation/NavigationBar.vue';
+import axiosConfig from './mixins/axiosConfig';
 
 export default {
   name: 'app',
@@ -49,6 +50,9 @@ export default {
       this.$store.commit('authentication/logoutSuccess');
     },
   },
+  mixins: [
+    axiosConfig,
+  ],
 };
 </script>
 

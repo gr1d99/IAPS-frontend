@@ -1,11 +1,11 @@
 <template>
 <div class="row">
-  <div class="col-lg-4 mb-4" v-for="opening in openings">
     <OpeningCard
+      v-for="opening in openings"
+      :key="opening.id"
       :title="opening.attributes.title"
       :description="opening.attributes.description"
       :openingId="opening.id"/>
-  </div>
 </div>
 <!-- /.row -->
 </template>
@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style scoped>
-
+  a.add-opening {
+    text-decoration: none;
+  }
 </style>
