@@ -5,7 +5,7 @@
                    :current-user="currentUser"
                    :current-user-name="currentUserName"
                    v-on:logout-user="logoutUser"/>
-    <router-view :app-loading="appLoading"></router-view>
+    <router-view :app-loading="appLoading" :is-admin="isAdmin"></router-view>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 import Cookies from 'js-cookie';
 import { mapGetters } from 'vuex';
 import NavigationBar from '@/components/Navigation/NavigationBar.vue';
-import axiosConfig from './mixins/axiosConfig';
+import axiosConfig from '@/mixins/axiosConfig';
 
 export default {
   name: 'app',
@@ -56,7 +56,7 @@ export default {
 
       const whiteListedPaths = ['/sign_in', 'sign_up'];
 
-      if (currentPath !== '/' && whiteListedPaths.indexOf(currentPath) < 0) {
+      if (whiteListedPaths.indexOf(currentPath) < 0) {
         this.$router.push({
           name: 'home-page',
         });

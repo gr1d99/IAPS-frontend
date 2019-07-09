@@ -2,6 +2,7 @@
   <div>
     <LandingPageHeader/>
     <PageContent
+      :is-admin="isAdmin"
       :app-loading="appLoading"
       :openings-data="openings.data"
       v-if="dataFetched"
@@ -12,7 +13,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import authenticationMixin from '@/mixins/authenticationMixin';
 import axiosConfig from '@/mixins/axiosConfig';
 
 import LandingPageHeader from '@/components/LandingPageHeader.vue';
@@ -25,6 +25,10 @@ export default {
   },
   props: {
     appLoading: {
+      type: Boolean,
+      required: true,
+    },
+    isAdmin: {
       type: Boolean,
       required: true,
     },
@@ -42,8 +46,7 @@ export default {
     },
   },
   mixins: [
-    authenticationMixin,
-    axiosConfig
+    axiosConfig,
   ],
 };
 </script>

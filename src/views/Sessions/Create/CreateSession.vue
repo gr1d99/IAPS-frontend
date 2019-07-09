@@ -88,6 +88,12 @@ export default {
 
           this.$store.commit('authentication/authSuccess', accessToken);
 
+          const nextPath = this.$route.query.next;
+
+          if (nextPath) {
+            return this.$router.push(nextPath);
+          }
+
           this.$router.push({
             name: 'home-page',
           });

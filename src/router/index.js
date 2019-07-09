@@ -70,12 +70,14 @@ router.beforeEach((to, from, next) => {
   const { requiresAuth } = to.meta;
   const { requiresAdmin } = to.meta;
   const authenticated = !!Vue.$jwt.decode();
+  const nextPath = to.path;
+
   if (authenticated && requiresAuth === false) {
     next({ path: '/' });
   } else if (!authenticated && requiresAuth && requiresAdmin) {
-    next({ path: '/sign_up' });
+    next({ path: '/sign_in', query: { next: nextPath } });
   } else if (!authenticated && requiresAuth) {
-    next({ path: '/sign_in' });
+    next({ path: '/sign_in', query: { next: nextPath } });
   } else {
     next();
   }
