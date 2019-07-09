@@ -73,4 +73,7 @@ export default {
 @import '../node_modules/bootswatch/dist/yeti/variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootswatch/dist/yeti/bootswatch';
+.btn {
+  border-radius: .2rem;
+}
 </style>

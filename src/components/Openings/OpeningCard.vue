@@ -9,7 +9,7 @@
       <p class="card-text">{{ description }}</p>
     </div>
     <div class="card-footer">
-      <router-link :to="{ name: 'show-opening', params: { id: openingId } }" class="btn btn-primary">
+      <router-link :to="{ name: 'show-opening', params: { id: openingId } }" class="btn btn-primary btn-sm">
         Learn More
       </router-link>
     </div>

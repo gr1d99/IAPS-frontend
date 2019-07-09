@@ -8,7 +8,7 @@
             <div v-if="openingFound">
               <div v-if="opening.id">
                 <div class="card-body">
-                  <h4 class="card-title pl-2">{{ opening.attributes.title }} <small class="float-right badge badge-pill" style="font-size: 70%" :class="opening.attributes.open ? 'badge-success': 'badge-danger'">{{ opening.attributes.open ? 'open': 'closed' }}</small></h4>
+                  <h4 class="card-title pl-2">{{ opening.attributes.title }} <small class="float-right badge badge-pill opening-status-badge" style="font-size: 70%" :class="opening.attributes.open ? 'badge-success': 'badge-danger'">{{ opening.attributes.open ? 'open': 'closed' }}</small></h4>
                   <hr/>
                   <div class="d-flex flex-column justify-content-start">
                     <span class="opening-company pt-2 pl-2"><strong class="company-header">Company:</strong> {{opening.attributes.company}}</span>
@@ -25,8 +25,9 @@
                   </div>
                   <div class="d-flex flex-column mt-3">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
-                    <router-link :to="{ name: 'EditOpening', params: { id: opening.id }}" class="card-link btn-info badge">Edit</router-link>
-                    <button class="card-link btn-warning badge" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+                    <hr>
+                    <router-link :to="{ name: 'EditOpening', params: { id: opening.id }}" class="card-link btn btn-info btn-sm">Edit</router-link>
+                    <a class="card-link btn btn-warning btn-sm delete-opening" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
                     <DeleteOpeningModal :title="opening.attributes.title"/>
                   </span>
                   </div>
@@ -116,5 +117,20 @@ export default {
 }
 .end-date-header {
   padding-right: 17px;
+}
+a.delete-opening {
+  color: #fff;
+}
+a.delete-opening:hover {
+  cursor: pointer;
+  color: #fff;
+}
+.opening-status-badge {
+  padding-right: 0.8em;
+  padding-left: 0.8em;
+  border-radius: 0.7em;
+}
+small.opening-status-badge {
+  font-size: 50% !important;
 }
 </style>

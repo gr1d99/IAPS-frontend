@@ -90,7 +90,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary btn-sm">Create</button>
     </form>
   </div>
 </template>
