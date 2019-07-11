@@ -1,103 +1,103 @@
 <template>
-  <div class="opening-form">
-    <div class="alert alert-danger opening-error-box"
-         role="alert"
-         v-show="hasErrors">
-      <ul class="errors">
-        <li class="error-item"
-            v-for="(error, index) in errors"
-            :key="index">{{error}}</li>
-      </ul>
+<div class="opening-form">
+  <div class="alert alert-danger opening-error-box"
+       role="alert"
+       v-show="hasErrors">
+    <ul class="errors">
+      <li class="error-item"
+          v-for="(error, index) in errors"
+          :key="index">{{error}}</li>
+    </ul>
+  </div>
+
+  <form v-on:submit.prevent="handleSubmit">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="id_title">Title</label>
+        <input id="id_title"
+               name="title"
+               type="text"
+               class="form-control"
+               placeholder="Title"
+               required
+               v-model="opening.title"/>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="id_company">Company</label>
+        <input id="id_company"
+               name="company"
+               type="text"
+               class="form-control"
+               placeholder="Company Name"
+               required
+               v-model="opening.company"/>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="id_location">Location</label>
+        <input id="id_location"
+               name="location"
+               type="text"
+               class="form-control"
+               placeholder="Opening Location"
+               required
+               v-model="opening.location" />
+      </div>
     </div>
 
-    <form v-on:submit.prevent="handleSubmit">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="id_title">Title</label>
-          <input id="id_title"
-                 name="title"
-                 type="text"
-                 class="form-control"
-                 placeholder="Title"
-                 required
-                 v-model="opening.title"/>
-        </div>
+    <div class="form-group">
+      <label for="id_description">Description</label>
+      <textarea id="id_description"
+                name="description"
+                class="form-control"
+                rows="3"
+                v-model="opening.description">
+    </textarea>
+    </div>
 
-        <div class="form-group col-md-4">
-          <label for="id_company">Company</label>
-          <input id="id_company"
-                 name="company"
-                 type="text"
-                 class="form-control"
-                 placeholder="Company Name"
-                 required
-                 v-model="opening.company"/>
-        </div>
+    <div class="form-group">
+      <label for="id_qualifications">Qualifications</label>
+      <textarea id="id_qualifications"
+                name="qualifications"
+                class="form-control"
+                rows="3"
+                v-model="opening.qualifications">
+    </textarea>
+    </div>
 
-        <div class="form-group col-md-4">
-          <label for="id_location">Location</label>
-          <input id="id_location"
-                 name="location"
-                 type="text"
-                 class="form-control"
-                 placeholder="Opening Location"
-                 required
-                 v-model="opening.location" />
-        </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="id_start_date">Start Date</label>
+        <input id="id_start_date"
+               name="start_date"
+               type="date"
+               :min="minStartDate"
+               class="form-control"
+               required
+               v-model="opening.start_date"/>
       </div>
 
-      <div class="form-group">
-        <label for="id_description">Description</label>
-        <textarea id="id_description"
-                  name="description"
-                  class="form-control"
-                  rows="3"
-                  v-model="opening.description">
-      </textarea>
+      <div class="form-group col-md-6">
+        <label for="id_end_date">Start Date</label>
+        <input id="id_end_date"
+               name="end_date"
+               type="date"
+               :min="minEndDate"
+               class="form-control"
+               required
+               v-model="opening.end_date"/>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="id_qualifications">Qualifications</label>
-        <textarea id="id_qualifications"
-                  name="qualifications"
-                  class="form-control"
-                  rows="3"
-                  v-model="opening.qualifications">
-      </textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="id_start_date">Start Date</label>
-          <input id="id_start_date"
-                 name="start_date"
-                 type="date"
-                 :min="minStartDate"
-                 class="form-control"
-                 required
-                 v-model="opening.start_date"/>
-        </div>
-
-        <div class="form-group col-md-6">
-          <label for="id_end_date">Start Date</label>
-          <input id="id_end_date"
-                 name="end_date"
-                 type="date"
-                 :min="minEndDate"
-                 class="form-control"
-                 required
-                 v-model="opening.end_date"/>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-sm">Create</button>
-    </form>
-  </div>
+    <button type="submit" class="btn btn-primary btn-sm">Create</button>
+  </form>
+</div>
 </template>
 
 <script>
 export default {
-  mounted() {
+  created() {
     this.minStartDate = this.handleMinStartDate();
     this.minEndDate = this.handleMinEndDate();
   },
@@ -151,3 +151,12 @@ export default {
   },
 };
 </script>
+
+<style>
+form {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 1em;
+  padding-bottom: 0.5em;
+  border-radius: 0.2em;
+}
+</style>

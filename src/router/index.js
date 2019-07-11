@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import EditOpening from '../views/Admin/Opening/EditOpening.vue';
-
-const CreateSession = (/* webpackChunkName: "new-session" */) => import('../views/Sessions/Create/CreateSession.vue');
-const CreateUser = (/* webpackChunkName: "user-registration" */) => import('../views/Users/Create/CreateUser.vue');
-const HomePage = (/* webpackChunkName: "home-page" */) => import('../views/Home/HomePage.vue');
-const ShowOpening = (/* webpackChunkName: "opening-detail" */) => import('../views/Opening/ShowOpening.vue');
-const CreateApplication = (/* webpackChunkName: "create-application" */) => import('../views/Application/CreateApplication.vue');
-const CreateOpening = (/* webpackChunkName: "create-opening" */) => import('../views/Admin/Opening/AdminOpeningCreate.vue');
+const CreateSession = (/* webpackChunkName: "new-session" */) => import('@/views/Sessions/Create/CreateSession.vue');
+const CreateUser = (/* webpackChunkName: "user-registration" */) => import('@/views/Users/Create/CreateUser.vue');
+const HomePage = (/* webpackChunkName: "home-page" */) => import('@/views/Home/HomePage.vue');
+const ShowOpening = (/* webpackChunkName: "opening-detail" */) => import('@/views/Opening/ShowOpening.vue');
+const CreateApplication = (/* webpackChunkName: "create-application" */) => import('@/views/Application/CreateApplication.vue');
+const CreateOpening = (/* webpackChunkName: "create-opening" */) => import('@/views/Admin/Opening/AdminOpeningCreate.vue');
+const AdminOpeningEdit = (/* webpackChunkName: "edit-opening" */) => import('@/views/Admin/Opening/AdminOpeningEdit.vue');
 
 
 Vue.use(Router);
@@ -52,8 +51,12 @@ const router = new Router({
     },
     {
       path: '/openings/:id/edit',
-      name: 'EditOpening',
-      component: EditOpening,
+      name: 'edit-opening',
+      component: AdminOpeningEdit,
+      meta: {
+        requiresAuth: true,
+        requiresAdmin: true,
+      },
     },
     {
       path: '/openings/:id/applications',

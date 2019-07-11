@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="container">
     <div class="row">
       <div class="col-lg-3"></div>
       <div class="col col-lg-6">
@@ -26,7 +26,7 @@
                   <div class="d-flex flex-column mt-3">
                   <span class="admin-action-buttons pl-2" v-if="isAdmin">
                     <hr>
-                    <router-link :to="{ name: 'EditOpening', params: { id: opening.id }}" class="card-link btn btn-info btn-sm">Edit</router-link>
+                    <router-link :to="{ name: 'edit-opening', params: { id: opening.id }}" class="card-link btn btn-info btn-sm">Edit</router-link>
                     <a class="card-link btn btn-warning btn-sm delete-opening" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
                     <DeleteOpeningModal :title="opening.attributes.title"/>
                   </span>
@@ -128,6 +128,7 @@ a.delete-opening:hover {
 .opening-status-badge {
   padding-right: 0.8em;
   padding-left: 0.8em;
+  padding-bottom: 0.4em;
   border-radius: 0.7em;
 }
 small.opening-status-badge {

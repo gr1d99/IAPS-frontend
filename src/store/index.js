@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 // global
 import state from './global/state';
@@ -26,4 +27,5 @@ export default new Vuex.Store({
     openings,
     applications,
   },
+  plugins: [createPersistedState()],
 });

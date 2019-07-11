@@ -19,9 +19,16 @@ export default {
         dispatch('setAppLoading', DONE_TYPE, { root: true });
       });
   },
-  editOpening({ dispatch }, data) {
+  fetchOpening({ commit }, openingId) {
+    Openings.get(openingId).then((response) => {
+      commit('addOpening', response.data.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  },
+  editOpening({ dispatch }, payload) {
     dispatch('setAppLoading', WAITING_TYPE, { root: true });
-    Openings.edit(data.openingId, { openings: data.opening })
+    return Openings.edit(payload.openingId, { opening: payload.data })
       .then(() => {
         dispatch('setAppLoading', DONE_TYPE, { root: true });
       })

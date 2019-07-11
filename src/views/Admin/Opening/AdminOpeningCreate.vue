@@ -2,16 +2,12 @@
   <div class="container py-3">
     <div class="row">
       <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-
-        <h5 class="text-center pt-5">New Opening</h5>
-
+      <div class="col-lg-6 create-opening">
+        <h5 class="text-center">New Opening</h5>
         <hr/>
-
         <AdminOpeningCreateForm :has-errors="hasErrors"
                                 :errors="errors"
                                 v-on:form-submitted="submitData"/>
-
         <hr/>
       </div>
       <div class="col-lg-3"></div>
@@ -147,21 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-group {
-  padding: 10px 30px 0 30px;
-}
-.new-opening-form-btn {
-  margin-left: 30px;
-  margin-bottom: 30px;
-}
-.opening-error-box {
-  padding-bottom: 0;
-}
-.errors {
-  padding-left: 0;
-}
-.error-item {
-  list-style: none;
-  font-size: 12px;
+div.create-opening {
+  margin-top: 100px;
 }
 </style>
