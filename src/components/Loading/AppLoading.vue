@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="d-flex align-items-center pt-4">
+    <div class="d-flex align-items-center pt-4 app-loader">
       <strong>Loading...</strong>
       <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
     </div>
@@ -11,6 +11,4 @@ export default {
   name: 'AppLoading',
 };
 </script>
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

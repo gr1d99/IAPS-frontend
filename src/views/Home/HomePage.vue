@@ -1,6 +1,7 @@
 <template>
   <div>
     <LandingPageHeader/>
+
     <PageContent
       :is-admin="isAdmin"
       :app-loading="appLoading"

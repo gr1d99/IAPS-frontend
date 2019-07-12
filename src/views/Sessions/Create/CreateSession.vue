@@ -36,9 +36,13 @@
           </div>
 
           <div class="signin-form-button">
+            <button class="btn btn-primary" type="button" disabled v-if="appLoading">
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </button>
             <button type="submit"
-                    class="btn btn-default bg-dark text-uppercase"
-                    @click="submitData">Submit</button>
+                    class="btn btn-primary text-uppercase"
+                    @click="submitData" v-else>Submit</button>
           </div>
         </form>
       </div>
@@ -66,6 +70,17 @@ export default {
       return this.errors.length > 0;
     },
   },
+  props: {
+    appLoading: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.$store.commit('setLoading', DONE_TYPE);
+    });
+  },
   methods: {
     submitData() {
       const data = {
@@ -79,7 +94,6 @@ export default {
 
       Sessions.create(data)
         .then((response) => {
-          this.$store.commit('setLoading', DONE_TYPE);
           const accessToken = response.headers['x-access-token'];
 
           Cookies.set('jwt-token', accessToken);
@@ -97,6 +111,8 @@ export default {
           this.$router.push({
             name: 'home-page',
           });
+
+          this.$store.commit('setLoading', DONE_TYPE);
         })
         .catch((error) => {
           this.$store.commit('setLoading', DONE_TYPE);

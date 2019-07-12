@@ -4,7 +4,7 @@
       <div class="col-lg-3"></div>
       <div class="col col-lg-6">
         <div class="opening-card">
-          <div class="card d-flex justify-content-center">
+          <div class="card d-flex justify-content-center br-2">
             <div v-if="openingFound">
               <div v-if="opening.id">
                 <div class="card-body">
@@ -33,13 +33,11 @@
                   </div>
                 </div>
                 <div class="card-footer" v-if="!isAdmin && opening.attributes.open">
-                  <router-link :to="{ name: 'create-application', params: { id: opening.id }}" class="btn btn-primary">Apply now</router-link>
+                  <router-link :to="{ name: 'create-application', params: { id: opening.id }}" class="btn btn-primary btn-sm">Apply now</router-link>
                 </div>
               </div>
             </div>
-            <div class="card-body" v-else>
-              <h4>Oops!! It seems the opening you are looking for does not exist</h4>
-            </div>
+            <OpeningNotFound v-else />
           </div>
         </div>
       </div>
@@ -52,9 +50,8 @@
 
 import { DONE_TYPE, WAITING_TYPE } from '@/constants/async_types';
 
-import appLoadingMixin from '../../mixins/appLoadingMixin';
-import authenticationMixin from '../../mixins/authenticationMixin';
-import DeleteOpeningModal from '../../components/Modals/DeleteOpeningModal.vue';
+import DeleteOpeningModal from '@/components/Modals/DeleteOpeningModal.vue';
+import OpeningNotFound from '@/components/Openings/OpeningNotFound.vue';
 
 import Opening from '@/services/openings';
 
@@ -66,7 +63,7 @@ export default {
   data() {
     return {
       opening: {},
-      openingFound: false,
+      openingFound: true,
     };
   },
   methods: {
@@ -81,14 +78,15 @@ export default {
           const { status } = error.response;
           if (status === 404) {
             this.$store.dispatch('setAppLoading', DONE_TYPE);
+            this.openingFound = false;
           }
         }
       });
     },
   },
-  mixins: [appLoadingMixin, authenticationMixin],
   components: {
     DeleteOpeningModal,
+    OpeningNotFound,
   },
 };
 </script>
