@@ -2,6 +2,13 @@
 
 [https://iaas-client.herokuapp.com/](https://iaas-client.herokuapp.com/)
 
+### Credentials
+**Admins**
+1. email: `admin@email.com` password: `password`
+
+**Normal Users**
+1. email: `non-admin@email.com` password: `password`
+
 ## Project setup
 ```
 yarn install
