@@ -57,14 +57,23 @@ import Opening from '@/services/openings';
 
 export default {
   name: 'ShowOpening',
-  mounted() {
-    this.fetchOpening();
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fetchOpening();
+      next();
+    });
   },
   data() {
     return {
       opening: {},
       openingFound: true,
     };
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      required: true,
+    },
   },
   methods: {
     fetchOpening() {

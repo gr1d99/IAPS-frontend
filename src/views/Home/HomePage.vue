@@ -21,8 +21,11 @@ import PageContent from '@/components/PageContent.vue';
 
 export default {
   name: 'HomePage',
-  mounted() {
-    this.$store.dispatch('openings/fetchAllOpenings');
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fetchOpenings();
+      next();
+    });
   },
   props: {
     appLoading: {
@@ -44,6 +47,11 @@ export default {
     }),
     dataFetched() {
       return !!(this.openings && this.openings.data);
+    },
+  },
+  methods: {
+    fetchOpenings() {
+      this.$store.dispatch('openings/fetchAllOpenings');
     },
   },
   mixins: [

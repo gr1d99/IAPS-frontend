@@ -79,6 +79,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.$store.commit('setLoading', DONE_TYPE);
+      next();
     });
   },
   methods: {

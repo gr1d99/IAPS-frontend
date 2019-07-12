@@ -11,9 +11,12 @@
 
 <script>
 import Cookies from 'js-cookie';
+
 import { mapGetters } from 'vuex';
 
 import NavigationBar from '@/components/Navigation/NavigationBar.vue';
+
+import api from '@/api';
 
 import axiosConfig from '@/mixins/axiosConfig';
 
@@ -49,7 +52,10 @@ export default {
   methods: {
     logoutUser() {
       Cookies.remove('jwt-token');
-      this.$store.commit('authentication/logoutSuccess');
+
+      delete api.defaults.headers.common['X-Access-Token'];
+
+      this.$store.dispatch('authentication/userLoggedOut');
 
       this.redirectAfterLogout();
     },
