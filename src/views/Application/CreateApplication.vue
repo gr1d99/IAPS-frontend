@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div class="col-md-6 offset-md-3 create-application">
     <span>Step {{ cvData && resumeData ? '2' : '1' }} of 2</span>
     <div class="alert alert-danger upload-error-box"
@@ -36,6 +37,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
